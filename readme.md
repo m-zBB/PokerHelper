@@ -1,7 +1,7 @@
 # PokerHelper (Poker Texas Hold'Em)
 
-## Założenia
-1. Wszystkie możliwe układy kart od najstarszego
-2. Szansa na najlepsze karty na ręce przed flopem (wymaga podania ilości przeciwników)
-2. Obliczanie możliwych układów z procentową szansą wystąpienia po podaniu kart z ręki i od 3 oraz 4 kart ze stołu (flop + turn)
-3. Po podaniu kart z ręki i pięciu ze stołu (river) pokazuje najmocnieszy układ
+## Assumptions
+1. All poker hands from best to worst
+2. The chance for the best hand cards before the flop (requires the number of opponents)
+3. Calculation of the possible hands with a percentage chance of a hand after 3 and 4 cards from the table (flop + turn)
+4. The best hand after river (plus percentage chance)
