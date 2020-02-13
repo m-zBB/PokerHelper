@@ -1,19 +1,33 @@
-class Student {
-    fullName: string;
-    constructor(public firstName: string, public middleInitial: string, public lastName: string) {
-        this.fullName = firstName + " " + middleInitial + " " + lastName;
-    }
+
+import {TexasHoldem} from "poker-odds-calc"
+
+import Board from "poker-odds-calc/dts/lib/Board"
+
+function greeter() {
+    const Table = new TexasHoldem();
+    Table
+      .addPlayer(["Qs", "Ks"])
+      .addPlayer(["Qd", "Kd"])
+    
+      .setBoard(["Js","Ts","5h","Td"])
+      // or
+      .boardAction((board: Board) => {
+        board
+          .setFlop(["Js", "Ts", "5h"])
+          .setTurn("Td")
+      })
+      ;
+    
+    const Result = Table.calculate();
+    
+    Result.getPlayers().forEach(player => {
+      console.log(`${player.getName()} - ${player.getHand()} - Wins: ${player.getWinsPercentageString()} - Ties: ${player.getTiesPercentageString()}`);
+    });
+    
+    console.log(`Board: ${Result.getBoard()}`);
+    console.log(`Iterations: ${Result.getIterations()}`);
+    console.log(`Time takes: ${Result.getTime()}ms`);
 }
 
-interface Person {
-    firstName: string;
-    lastName: string;
-}
 
-function greeter(person: Person) {
-    return "Hello, " + person.firstName + " " + person.lastName;
-}
-
-let user = new Student("Michał", "X", "Zarr");
-
-document.body.textContent = greeter(user);
+document.onloadend = greeter
