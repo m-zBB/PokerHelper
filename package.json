@@ -20,9 +20,10 @@
     "posttest": "npm.cmd run check"
   },
   "devDependencies": {
+    "@types/node": "^10.0.3",
+    "browserify": "^16.5.0",
     "gts": "^1.1.2",
-    "typescript": "~3.7.0",
-    "@types/node": "^10.0.3"
+    "typescript": "~3.7.0"
   },
   "dependencies": {
     "bootstrap": "^4.4.1",
