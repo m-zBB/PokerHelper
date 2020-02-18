@@ -1,0 +1,1 @@
+npx browserify src\js\index.js -o src\js\bundle.js

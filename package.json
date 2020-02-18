@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "bootstrap": "^4.4.1",
+    "hutchison": "^3.0.7",
     "poker-odds-calc": "0.0.11"
   }
 }

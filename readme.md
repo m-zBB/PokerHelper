@@ -12,3 +12,4 @@
 ### Build poker-odds-calc.js
 
 npx browserify node_modules\poker-odds-calc\dist\index.js -o src\js_lib\poker-odds-calc.js
+npx browserify node_modules\hutchison\dist\index.js -o src\js_lib\hutchison.js
