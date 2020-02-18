@@ -8,15 +8,11 @@ function greeter() {
     Table
       .addPlayer(["Qs", "Ks"])
       .addPlayer(["Qd", "Kd"])
-    
-      .setBoard(["Js","Ts","5h","Td"])
-      // or
       .boardAction((board: Board) => {
         board
           .setFlop(["Js", "Ts", "5h"])
           .setTurn("Td")
-      })
-      ;
+      });
     
     const Result = Table.calculate();
     
@@ -29,5 +25,4 @@ function greeter() {
     console.log(`Time takes: ${Result.getTime()}ms`);
 }
 
-
-document.onloadend = greeter
+window.onload = greeter
