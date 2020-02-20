@@ -10,20 +10,15 @@
   "license": "Apache-2.0",
   "keywords": [],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "check": "gts check",
-    "clean": "gts clean",
-    "compile": "tsc -p .",
-    "fix": "gts fix",
-    "prepare": "npm.cmd run compile",
-    "pretest": "npm.cmd run compile",
-    "posttest": "npm.cmd run check"
+    "watch": "npx browserify -v --debug src/ts/index.ts -p [ tsify --noImplicitAny ] -p [ watchify -v ] -o src/js/bundle.js -v"
   },
   "devDependencies": {
     "@types/node": "^10.0.3",
     "browserify": "^16.5.0",
     "gts": "^1.1.2",
-    "typescript": "~3.7.0"
+    "tsify": "^4.0.1",
+    "typescript": "~3.7.0",
+    "watchify": "^3.11.1"
   },
   "dependencies": {
     "bootstrap": "^4.4.1",
