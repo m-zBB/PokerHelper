@@ -8,7 +8,7 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/hand_values.css">
+    <link rel="stylesheet" href="css/hand_calc.css">
 
     <title>PokerHelper (Texas Hold'em)</title>
 </head>
@@ -56,18 +56,43 @@
             <div class="container">
                 <h1 class="display-3">Preflop estimator</h1>
                 <input type="text" id="hand"><br><br>
-
+                <img src="img/cards/back.svg" class="cardpick" id="cardpick1">
+                <img src="img/cards/back.svg" class="cardpick" id="cardpick2">
             </div>
         </div>
 
     </main>
 
-    <footer class="container">
-        <p>&copy; Company 2017-2019</p>
-    </footer>
-    <script src="js_lib/jquery-3.4.1.min.js"></script>
-    <script src="js_lib/bootstrap.bundle.min.js"></script>
-    <script src="js/bundle.js"></script>
+    <div class="modal" tabindex="-1" role="dialog" id="cardpicker">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Pick one card</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <!-- todo 4 rows for all cards -->
+                            <img src="img/cards/AS.svg" class="card" data-card="As">
+                            <img src="img/cards/KS.svg" class="card" data-card="Ks">
+                            <img src="img/cards/QS.svg" class="card" data-card="Qs">
+                            <img src="img/cards/JS.svg" class="card" data-card="Js">
+                            <img src="img/cards/10S.svg" class="card" data-card="10s">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="container">
+            <p>&copy; Company 2017-2019</p>
+        </footer>
+        <script src="js_lib/jquery-3.4.1.min.js"></script>
+        <script src="js_lib/bootstrap.bundle.min.js"></script>
+        <script src="js/bundle.js"></script>
 </body>
 
 </html>

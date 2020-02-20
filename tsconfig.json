@@ -1,11 +1,11 @@
 {
   "extends": "./node_modules/gts/tsconfig-google.json",
   "compilerOptions": {
-    "lib": ["es2016", "DOM", "ES5"],
+    "lib": ["es2016", "DOM", "ES5", "DOM.Iterable"],
     "rootDir": "src/ts",
     "outDir": "src/js",
     "module": "commonjs",
-    "target": "ES5"
+    "target": "ES6"
   },
   "include": [
     "src/ts/**/*.ts"

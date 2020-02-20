@@ -10,7 +10,7 @@
   "license": "Apache-2.0",
   "keywords": [],
   "scripts": {
-    "watch": "npx browserify -v --debug src/ts/index.ts -p [ tsify --noImplicitAny ] -p [ watchify -v ] -o src/js/bundle.js -v"
+    "watch": "watchify -v --debug src/ts/index.ts -p [ tsify --noImplicitAny ] -o src/js/bundle.js"
   },
   "devDependencies": {
     "@types/node": "^10.0.3",
@@ -21,6 +21,7 @@
     "watchify": "^3.11.1"
   },
   "dependencies": {
+    "@types/jquery": "^3.3.32",
     "bootstrap": "^4.4.1",
     "hutchison": "^3.0.7",
     "poker-odds-calc": "0.0.11"
