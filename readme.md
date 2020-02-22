@@ -7,9 +7,28 @@
 3. Calculation of the possible hands with a percentage chance of a hand after 3 and 4 cards from the table (flop + turn)
 4. The best hand after river (plus percentage chance)
 
-## Development
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.0.3.
 
-### Build poker-odds-calc.js
+## Development server
 
-npx browserify node_modules\poker-odds-calc\dist\index.js -o src\js_lib\poker-odds-calc.js
-npx browserify node_modules\hutchison\dist\index.js -o src\js_lib\hutchison.js
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+
+## Code scaffolding
+
+Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+
+## Build
+
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+
+## Running unit tests
+
+Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+
+## Running end-to-end tests
+
+Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+
+## Further help
+
+To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
