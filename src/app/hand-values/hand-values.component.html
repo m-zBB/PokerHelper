@@ -2,7 +2,31 @@
  <div class="jumbotron">
     <div class="container">
         <h1 class="display-3">Hand Values</h1>
-        <div class="accordion" id="accordionHands">
+        <ngb-accordion #acc="ngbAccordion" [closeOthers]="true">
+            <ngb-panel title="Royal Flush">
+              <ng-template ngbPanelContent>
+                <p>A, K, Q, J, 10 all the same suit</p>
+                <img src="assets/img/cards/AS.svg" class="pcard">
+                <img src="assets/img/cards/KS.svg" class="pcard">
+                <img src="assets/img/cards/QS.svg" class="pcard">
+                <img src="assets/img/cards/JS.svg" class="pcard">
+                <img src="assets/img/cards/10S.svg" class="pcard">
+              </ng-template>
+            </ngb-panel>
+            <ngb-panel title="Straight Flush">
+                <ng-template ngbPanelContent>
+                    <p>Straight Flush - Five cards in a sequence, all in the same suit</p>
+                    <img src="assets/img/cards/9D.svg" class="pcard">
+                    <img src="assets/img/cards/8D.svg" class="pcard">
+                    <img src="assets/img/cards/7D.svg" class="pcard">
+                    <img src="assets/img/cards/6D.svg" class="pcard">
+                    <img src="assets/img/cards/5D.svg" class="pcard">
+                </ng-template>
+              </ngb-panel>
+
+          </ngb-accordion>
+
+        <!-- <div class="accordion" id="accordionHands">
             <div class="card">
                 <div class="card-header">
                     <h4 class="mb-0">
@@ -25,7 +49,7 @@
                 </div>
             </div>
         </div>
-        
+
 
 
 
@@ -95,4 +119,4 @@
 
     </div>
 </div>
-
+ -->
