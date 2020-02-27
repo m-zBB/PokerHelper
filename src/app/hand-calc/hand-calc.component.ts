@@ -1,20 +1,30 @@
-import { Component, OnInit } from '@angular/core';
-import { cardDeck } from '../models/card.models';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { CardPickerComponent } from '../card-picker/card-picker.component';
+import { card } from '../models/card.models';
 
 @Component({
-  selector: 'app-hand-calc',
-  templateUrl: './hand-calc.component.html',
-  styleUrls: ['./hand-calc.component.css']
+    selector: 'app-hand-calc',
+    templateUrl: './hand-calc.component.html',
+    styleUrls: ['./hand-calc.component.css']
 })
 export class HandCalcComponent implements OnInit {
+    card1: card
+    card2: card
 
-  deck: cardDeck;
+    @ViewChild("cardPicker")
+    cardPicker: CardPickerComponent
 
-  constructor() {
-    this.deck = new cardDeck()
-  }
+    constructor() {
+        this.card1 = new card()
+        this.card2 = new card()
+    }
 
-  ngOnInit(): void {
-  }
-
+    ngOnInit(): void {
+    }
+    openCardPicker(c: card) {
+        this.cardPicker.open().then(pickedCard => {
+            c.set(pickedCard);
+            
+        })
+    }
 }

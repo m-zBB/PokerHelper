@@ -25,13 +25,22 @@ export enum cardRank {
 }
 
 export class card {
+    
+    set(newCard: card) {
+        this.rank = newCard.rank;
+        this.color = newCard.color;
+    }
+
     color: cardColor
     rank: cardRank
-    constructor(rank: cardRank, color: cardColor) {
+    constructor(rank?: cardRank, color?: cardColor) {
         this.rank = rank
         this.color = color
     }
     getImageSrc(): string {
+        if (this.rank === undefined || this.color === undefined) {
+            return 'assets/img/cards/back.svg'
+        }
         return `assets/img/cards/${this.rank}${this.color.toUpperCase()}.svg`
     }
 }
@@ -44,8 +53,8 @@ export class cardDeck {
     clubs: card[]
 
     private static ranks: cardRank[] = [cardRank.ace, cardRank.king, cardRank.queen,
-        cardRank.jack, cardRank.ten, cardRank.nine, cardRank.eight, cardRank.seven,
-        cardRank.six, cardRank.five, cardRank.four, cardRank.three, cardRank.two]
+    cardRank.jack, cardRank.ten, cardRank.nine, cardRank.eight, cardRank.seven,
+    cardRank.six, cardRank.five, cardRank.four, cardRank.three, cardRank.two]
 
     constructor() {
         this.spades = this.createCardsOfColor(cardColor.spades)

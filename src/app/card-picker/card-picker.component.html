@@ -1,0 +1,28 @@
+<ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Pick one card</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+        <div class="container-fluid">
+            <div class="row">
+                <img *ngFor="let card of deck.spades" src="{{card.getImageSrc()}}" (click)="close(card)" class="card">
+            </div>
+            <div class="row">
+                <img *ngFor="let card of deck.hearts" src="{{card.getImageSrc()}}" (click)="close(card)" class="card">
+            </div>
+            <div class="row">
+                <img *ngFor="let card of deck.diamonds" src="{{card.getImageSrc()}}" (click)="close(card)" class="card">
+            </div>
+            <div class="row">
+                <img *ngFor="let card of deck.clubs" src="{{card.getImageSrc()}}" (click)="close(card)" class="card">
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+    </div>
+  </ng-template>
