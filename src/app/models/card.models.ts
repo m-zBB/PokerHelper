@@ -73,11 +73,19 @@ export class cardDeck {
 
     }
 
-    createCardsOfColor(color: cardColor): card[] {
+    private createCardsOfColor(color: cardColor): card[] {
         const cards: card[] = []
         for (let rank of cardDeck.ranks) {
             cards.push(new card(rank, color)) //nowa instancja klasy//
         }
+        return cards
+    }
+    getFullDeck(): card[] {
+        const cards: card[] = []
+        cards.push(...this.spades)
+        cards.push(...this.hearts)
+        cards.push(...this.diamonds)
+        cards.push(...this.clubs)
         return cards
     }
 }
