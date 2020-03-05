@@ -4,6 +4,8 @@
         <h1 class="display-3">Preflop estimator</h1>
         <img src="{{card1.getImageSrc()}}" class="cardpick" (click)="openCardPicker(card1)">
         <img src="{{card2.getImageSrc()}}" class="cardpick" (click)="openCardPicker(card2)">
+
+        <p>Hand value: {{handValue}}</p>
     </div>
 
 <app-card-picker #cardPicker></app-card-picker>

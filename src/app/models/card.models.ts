@@ -12,7 +12,7 @@ export enum cardRank {
     king = "K",
     queen = "Q",
     jack = "J",
-    ten = "10",
+    ten = "T",
     nine = "9",
     eight = "8",
     seven = "7",
@@ -25,23 +25,32 @@ export enum cardRank {
 }
 
 export class card {
-    
+
     set(newCard: card) {
         this.rank = newCard.rank;
         this.color = newCard.color;
     }
 
-    color: cardColor
-    rank: cardRank
+    private color: cardColor
+    private rank: cardRank
+
     constructor(rank?: cardRank, color?: cardColor) {
         this.rank = rank
         this.color = color
     }
+
     getImageSrc(): string {
-        if (this.rank === undefined || this.color === undefined) {
+        if (!this.isSet()) {
             return 'assets/img/cards/back.svg'
         }
         return `assets/img/cards/${this.rank}${this.color.toUpperCase()}.svg`
+    }
+
+    isSet(): boolean {
+        return this.rank !== undefined && this.color !== undefined
+    }
+    getSymbol(): string {
+        return this.rank + this.color
     }
 }
 
