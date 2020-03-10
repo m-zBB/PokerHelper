@@ -12,7 +12,11 @@ export class TableEstimatorComponent implements OnInit {
     handCards: HandValue;
     tableValue: TableValue;
 
-    constructor() { }
+    constructor() {
+        this.handCards = new HandValue()
+        this.tableValue = new TableValue()
+
+     }
 
     handValue: string
 
