@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
 import { card } from '../../models/card.models';
-import { CardPickerComponent } from '../../card-picker/card-picker.component';
+import { CardPickerComponent } from '../card-picker/card-picker.component';
 
 @Component({
     selector: 'app-hand',
@@ -41,8 +41,10 @@ export class HandValue {
         this.card1 = new card()
         this.card2 = new card()
     }
-    isSet(): boolean{
+    isSet(): boolean {
         return this.card1.isSet() && this.card2.isSet()
     }
-
+    getCardSymbols(): string[] {
+        return [this.card1.getSymbol(), this.card2.getSymbol()]
+    }
 }

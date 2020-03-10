@@ -10,6 +10,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CardPickerComponent } from './shared/card-picker/card-picker.component';
 import { TableEstimatorComponent } from './pages/table-estimator/table-estimator.component';
 import { HandComponent } from './shared/hand/hand.component';
+import { TableComponent } from './shared/table/table.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { HandComponent } from './shared/hand/hand.component';
     CardPickerComponent,
     TableEstimatorComponent,
     HandComponent,
+    TableComponent,
   ],
   imports: [
     BrowserModule,
