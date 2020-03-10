@@ -52,6 +52,8 @@ export class card {
     getSymbol(): string {
         return this.rank + this.color
     }
+    //nowa nazwa metod getsymbol (for hutchinsonlib i forpokercalclib) + zmina użycia na stronach
+    //T na 10 (if)+color
 }
 
 export class cardDeck {
