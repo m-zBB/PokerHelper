@@ -1,0 +1,6 @@
+<div class="container">
+    <img src="{{value.card1.getImageSrc()}}" class="cardpick" (click)="openCardPicker(value.card1)">
+    <img src="{{value.card2.getImageSrc()}}" class="cardpick" (click)="openCardPicker(value.card2)">
+</div>
+
+<app-card-picker #cardPicker></app-card-picker>
