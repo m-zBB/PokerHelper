@@ -8,6 +8,8 @@ import { HandValuesComponent } from './hand-values/hand-values.component';
 import { HandCalcComponent } from './hand-calc/hand-calc.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CardPickerComponent } from './card-picker/card-picker.component';
+import { TableEstimatorComponent } from './table-estimator/table-estimator.component';
+import { HandComponent } from './hand/hand.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +18,8 @@ import { CardPickerComponent } from './card-picker/card-picker.component';
     HandValuesComponent,
     HandCalcComponent,
     CardPickerComponent,
+    TableEstimatorComponent,
+    HandComponent,
   ],
   imports: [
     BrowserModule,

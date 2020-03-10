@@ -3,30 +3,35 @@ import { Routes, RouterModule } from '@angular/router';
 import { MainPageComponent } from './main-page/main-page.component';
 import { HandValuesComponent } from './hand-values/hand-values.component';
 import { HandCalcComponent } from './hand-calc/hand-calc.component';
+import { TableEstimatorComponent } from './table-estimator/table-estimator.component';
 
 
 const routes: Routes = [
-  {
-    path: '',
-    redirectTo: '/main-page',
-    pathMatch: 'full'
-  },
-  {
-    path: 'main-page',
-    component: MainPageComponent
-  },
-  {
-    path: 'hand-values',
-    component: HandValuesComponent
-  },
-  {
-    path: 'hand-calc',
-    component: HandCalcComponent
-  },
+    {
+        path: '',
+        redirectTo: '/main-page',
+        pathMatch: 'full'
+    },
+    {
+        path: 'main-page',
+        component: MainPageComponent
+    },
+    {
+        path: 'hand-values',
+        component: HandValuesComponent
+    },
+    {
+        path: 'hand-calc',
+        component: HandCalcComponent
+    },
+    {
+        path: 'table-estimator',
+        component: TableEstimatorComponent
+    },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+    imports: [RouterModule.forRoot(routes)],
+    exports: [RouterModule]
 })
 export class AppRoutingModule { }
