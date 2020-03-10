@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { CardPickerComponent } from '../card-picker/card-picker.component';
-import { card } from '../models/card.models';
+import { CardPickerComponent } from '../../shared/card-picker/card-picker.component';
+import { card } from '../../models/card.models';
 import { texasHoldem } from 'hutchison';
-import { HandComponent, HandValue } from '../hand/hand.component';
+import { HandComponent, HandValue } from '../../shared/hand/hand.component';
 
 @Component({
     selector: 'app-hand-calc',

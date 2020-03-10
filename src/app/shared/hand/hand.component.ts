@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
-import { card } from '../models/card.models';
-import { CardPickerComponent } from '../card-picker/card-picker.component';
+import { card } from '../../models/card.models';
+import { CardPickerComponent } from '../../card-picker/card-picker.component';
 
 @Component({
     selector: 'app-hand',
