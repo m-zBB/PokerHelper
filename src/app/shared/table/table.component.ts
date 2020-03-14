@@ -54,9 +54,9 @@ export class TableValue {
         return this.card1.isSet() && this.card2.isSet()
             && this.card3.isSet() && this.card4.isSet() && this.card5.isSet()
     }
-    getCardSymbols(): string[] {
-        return [this.card1.getSymbol(), this.card2.getSymbol(), this.card3.getSymbol(),
-        this.card4.getSymbol(), this.card5.getSymbol()]
+    getCardSymbolsForPokerCalcLib(): string[] {
+        return [this.card1.getSymbolForPokerCalcLib(), this.card2.getSymbolForPokerCalcLib(), this.card3.getSymbolForPokerCalcLib(),
+        this.card4.getSymbolForPokerCalcLib(), this.card5.getSymbolForPokerCalcLib()]
     }
 
 }

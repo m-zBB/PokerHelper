@@ -1,4 +1,4 @@
-import { AsapScheduler } from 'rxjs/internal/scheduler/AsapScheduler'
+import { CardPickerComponent } from '../shared/card-picker/card-picker.component';
 
 export enum cardColor {
     spades = "s",
@@ -39,6 +39,8 @@ export class card {
         this.color = color
     }
 
+
+
     getImageSrc(): string {
         if (!this.isSet()) {
             return 'assets/img/cards/back.svg'
@@ -49,7 +51,13 @@ export class card {
     isSet(): boolean {
         return this.rank !== undefined && this.color !== undefined
     }
-    getSymbol(): string {
+    getSymbolForHutchisonLib(): string {
+        return this.rank + this.color
+    }
+    getSymbolForPokerCalcLib(): string {
+        if (this.rank === cardRank.ten) {
+            return "10" + this.color
+        }
         return this.rank + this.color
     }
     //nowa nazwa metod getsymbol (for hutchinsonlib i forpokercalclib) + zmina użycia na stronach

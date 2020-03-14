@@ -4,7 +4,7 @@ import pokerCalc from 'poker-calc';
 import { cardDeck } from '../models/card.models';
 const cards = new cardDeck()
     .getFullDeck()
-    .map(c => c.getSymbol())
+    .map(c => c.getSymbolForPokerCalcLib())
 
 const outcomes = {
     WIN: 0,

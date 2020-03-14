@@ -40,7 +40,8 @@ export class TableEstimatorComponent implements OnInit {
         }
 
         console.time("simulation")
-        var results = monteCarlo(this.handCards.getCardSymbols(), this.tableValue.getCardSymbols());
+        var results = monteCarlo(this.handCards.getCardSymbolsForPokerCalcLib(),
+            this.tableValue.getCardSymbolsForPokerCalcLib());
         console.timeEnd("simulation")
 
         const winPercent = results[0] * 100;

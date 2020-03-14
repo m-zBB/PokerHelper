@@ -44,7 +44,10 @@ export class HandValue {
     isSet(): boolean {
         return this.card1.isSet() && this.card2.isSet()
     }
-    getCardSymbols(): string[] {
-        return [this.card1.getSymbol(), this.card2.getSymbol()]
+    getCardSymbolsForHutchisonLib(): string[] {
+        return [this.card1.getSymbolForHutchisonLib(), this.card2.getSymbolForHutchisonLib()]
+    }
+    getCardSymbolsForPokerCalcLib(): string[] {
+        return [this.card1.getSymbolForPokerCalcLib(), this.card2.getSymbolForPokerCalcLib()]
     }
 }

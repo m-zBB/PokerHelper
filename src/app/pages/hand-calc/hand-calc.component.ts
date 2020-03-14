@@ -18,7 +18,7 @@ export class HandCalcComponent implements OnInit {
     }
 
     calculateHand(value: HandValue) {
-        var result = texasHoldem({ hand: [value.card1.getSymbol(), value.card2.getSymbol()] });
+        var result = texasHoldem({ hand: value.getCardSymbolsForHutchisonLib()});
         console.log(result)
 
         const handValue = result.percentile * 100;
