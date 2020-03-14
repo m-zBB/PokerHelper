@@ -3,4 +3,4 @@
     <img src="{{value.card2.getImageSrc()}}" class="cardpick" (click)="openCardPicker(value.card2)">
 </div>
 
-<app-card-picker #cardPicker></app-card-picker>
+<app-card-picker #cardPicker [deck]="deck"></app-card-picker>

@@ -24,19 +24,25 @@ export enum cardRank {
 
 }
 
-export class card {
+export class Card {
 
-    set(newCard: card) {
-        this.rank = newCard.rank;
-        this.color = newCard.color;
+    set(newCard: Card) {
+        this._rank = newCard._rank;
+        this._color = newCard._color;
     }
 
-    private color: cardColor
-    private rank: cardRank
+    private _color: cardColor
+    get color(): cardColor {
+        return this._color;
+    }
+    private _rank: cardRank
+    get rank(): cardRank {
+        return this._rank;
+    }
 
     constructor(rank?: cardRank, color?: cardColor) {
-        this.rank = rank
-        this.color = color
+        this._rank = rank
+        this._color = color
     }
 
 
@@ -45,31 +51,31 @@ export class card {
         if (!this.isSet()) {
             return 'assets/img/cards/back.svg'
         }
-        return `assets/img/cards/${this.rank}${this.color.toUpperCase()}.svg`
+        return `assets/img/cards/${this._rank}${this._color.toUpperCase()}.svg`
     }
 
     isSet(): boolean {
-        return this.rank !== undefined && this.color !== undefined
+        return this._rank !== undefined && this._color !== undefined
     }
     getSymbolForHutchisonLib(): string {
-        return this.rank + this.color
+        return this._rank + this._color
     }
     getSymbolForPokerCalcLib(): string {
-        if (this.rank === cardRank.ten) {
-            return "10" + this.color
+        if (this._rank === cardRank.ten) {
+            return "10" + this._color
         }
-        return this.rank + this.color
+        return this._rank + this._color
     }
-    //nowa nazwa metod getsymbol (for hutchinsonlib i forpokercalclib) + zmina użycia na stronach
-    //T na 10 (if)+color
+
 }
+
 
 export class cardDeck {
 
-    spades: card[]
-    hearts: card[]
-    diamonds: card[]
-    clubs: card[]
+    spades: CardInDeck[]
+    hearts: CardInDeck[]
+    diamonds: CardInDeck[]
+    clubs: CardInDeck[]
 
     private static ranks: cardRank[] = [cardRank.ace, cardRank.king, cardRank.queen,
     cardRank.jack, cardRank.ten, cardRank.nine, cardRank.eight, cardRank.seven,
@@ -83,19 +89,45 @@ export class cardDeck {
 
     }
 
-    private createCardsOfColor(color: cardColor): card[] {
-        const cards: card[] = []
+    private createCardsOfColor(color: cardColor): CardInDeck[] {
+        const cards: CardInDeck[] = []
         for (let rank of cardDeck.ranks) {
-            cards.push(new card(rank, color)) //nowa instancja klasy//
+            cards.push(new CardInDeck(rank, color))
         }
         return cards
     }
-    getFullDeck(): card[] {
-        const cards: card[] = []
+    getFullDeck(): Card[] {
+        const cards: Card[] = []
         cards.push(...this.spades)
         cards.push(...this.hearts)
         cards.push(...this.diamonds)
         cards.push(...this.clubs)
         return cards
     }
+
+    pickCard(pickedCard: Card, oldCard: Card) {
+        this.findCard(pickedCard).isPicked = true
+        if (oldCard.isSet()) {
+            this.findCard(oldCard).isPicked = false
+        }
+    }
+
+    private findCard(card: Card): CardInDeck {
+        if (card.color === cardColor.clubs) {
+            return this.clubs.find(c => c.rank === card.rank)
+        }
+        if (card.color === cardColor.diamonds) {
+            return this.diamonds.find(c => c.rank === card.rank)
+        }
+        if (card.color === cardColor.hearts) {
+            return this.hearts.find(c => c.rank === card.rank)
+        }
+        if (card.color === cardColor.spades) {
+            return this.spades.find(c => c.rank === card.rank)
+        }
+    }
+}
+
+export class CardInDeck extends Card {
+    isPicked: boolean
 }

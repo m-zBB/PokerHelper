@@ -8,16 +8,20 @@
     <div class="modal-body">
         <div class="container-fluid">
             <div class="row">
-                <img *ngFor="let card of deck.spades" src="{{card.getImageSrc()}}" (click)="close(card)" class="card">
+                <img *ngFor="let card of deck.spades" src="{{card.getImageSrc()}}" (click)="close(card)" class="card"
+                [ngClass]="{picked: card.isPicked}">
             </div>
             <div class="row">
-                <img *ngFor="let card of deck.hearts" src="{{card.getImageSrc()}}" (click)="close(card)" class="card">
+                <img *ngFor="let card of deck.hearts" src="{{card.getImageSrc()}}" (click)="close(card)" class="card"
+                [ngClass]="{picked: card.isPicked}">
             </div>
             <div class="row">
-                <img *ngFor="let card of deck.diamonds" src="{{card.getImageSrc()}}" (click)="close(card)" class="card">
+                <img *ngFor="let card of deck.diamonds" src="{{card.getImageSrc()}}" (click)="close(card)" class="card"
+                [ngClass]="{picked: card.isPicked}">
             </div>
             <div class="row">
-                <img *ngFor="let card of deck.clubs" src="{{card.getImageSrc()}}" (click)="close(card)" class="card">
+                <img *ngFor="let card of deck.clubs" src="{{card.getImageSrc()}}" (click)="close(card)" class="card"
+                [ngClass]="{picked: card.isPicked}">
             </div>
         </div>
     </div>

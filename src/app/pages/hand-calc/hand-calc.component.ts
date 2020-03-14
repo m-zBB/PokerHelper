@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { CardPickerComponent } from '../../shared/card-picker/card-picker.component';
-import { card } from '../../models/card.models';
+import { Card, cardDeck } from '../../models/card.models';
 import { texasHoldem } from 'hutchison';
 import { HandComponent, HandValue } from '../../shared/hand/hand.component';
 
@@ -12,6 +12,11 @@ import { HandComponent, HandValue } from '../../shared/hand/hand.component';
 export class HandCalcComponent implements OnInit {
 
     handValue: string
+    deck: any;
+
+    constructor() {
+        this.deck = new cardDeck()
+    }
 
     ngOnInit(): void {
         this.handValue = "Pick two cards"

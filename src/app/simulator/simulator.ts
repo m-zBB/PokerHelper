@@ -52,8 +52,9 @@ function simulate(hand: string[], table: string[], players: number) {
         hand.push(deck.shift());
     }
 
-    // remove hand cards from deck
+    // remove table and hand cards from deck
     deck = deck.filter(c => !~table.indexOf(c));
+    deck = deck.filter(c => !~hand.indexOf(c));
 
     hands.push({ "playerId": 0, "cards": hand });
 

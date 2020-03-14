@@ -3,7 +3,7 @@
     <div class="container">
         <h1 class="display-3">Preflop estimator</h1>
 
-        <app-hand (chosen)="calculateHand($event)"></app-hand>
+        <app-hand (chosen)="calculateHand($event)" [deck]="deck"></app-hand>
 
         <p>Hand value: {{handValue}}</p>
     </div>

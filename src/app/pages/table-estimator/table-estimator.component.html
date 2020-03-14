@@ -2,8 +2,8 @@
     <div class="container">
         <h1 class="display-3">Preflop estimator</h1>
 
-        <app-hand (chosen)="setHand($event)"></app-hand>
-        <app-table (chosen)="setTable($event)"></app-table>
+        <app-hand (chosen)="setHand($event)" [deck]="deck"></app-hand>
+        <app-table (chosen)="setTable($event)" [deck]="deck"></app-table>
 
         <p>Hand value: {{handValue}}</p>
     </div>

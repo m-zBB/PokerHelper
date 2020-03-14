@@ -1,7 +1,6 @@
-import { Component, OnInit, Output, EventEmitter, ViewChild } from '@angular/core';
-import { HandValue } from '../hand/hand.component';
+import { Component, OnInit, Output, EventEmitter, ViewChild, Input } from '@angular/core';
 import { CardPickerComponent } from '../card-picker/card-picker.component';
-import { card } from 'src/app/models/card.models';
+import { Card, cardDeck } from 'src/app/models/card.models';
 
 @Component({
     selector: 'app-table',
@@ -9,6 +8,8 @@ import { card } from 'src/app/models/card.models';
     styleUrls: ['./table.component.css']
 })
 export class TableComponent implements OnInit {
+
+    @Input() deck: cardDeck;
 
     @Output() chosen = new EventEmitter<TableValue>();
 
@@ -23,8 +24,9 @@ export class TableComponent implements OnInit {
 
     ngOnInit(): void {
     }
-    openCardPicker(c: card) {
+    openCardPicker(c: Card) {
         this.cardPicker.open().then(pickedCard => {
+            this.deck.pickCard(pickedCard, c)
             c.set(pickedCard);
 
             if (this.value.isSet()) {
@@ -35,20 +37,20 @@ export class TableComponent implements OnInit {
 }
 export class TableValue {
 
-    card1: card
-    card2: card
-    card3: card
+    card1: Card
+    card2: Card
+    card3: Card
 
-    card4: card
+    card4: Card
 
-    card5: card
+    card5: Card
 
     constructor() {
-        this.card1 = new card()
-        this.card2 = new card()
-        this.card3 = new card()
-        this.card4 = new card()
-        this.card5 = new card()
+        this.card1 = new Card()
+        this.card2 = new Card()
+        this.card3 = new Card()
+        this.card4 = new Card()
+        this.card5 = new Card()
     }
     isSet(): boolean {
         return this.card1.isSet() && this.card2.isSet()

@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
-import { cardDeck, card } from '../../models/card.models';
+import { Component, OnInit, ViewChild, TemplateRef, Input } from '@angular/core';
+import { cardDeck, Card, CardInDeck } from '../../models/card.models';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -9,23 +9,27 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 })
 export class CardPickerComponent implements OnInit {
 
+    @Input() deck: cardDeck;
+
     @ViewChild("content")
     modalContent: TemplateRef<any>;
     modal: NgbModalRef;
 
-    open(): Promise<card> {
+    open(): Promise<Card> {
         this.modal = this.modalService.open(this.modalContent, {size: 'lg' })
         return this.modal.result
     }
     ngOnInit(): void {
     }
 
-    deck: cardDeck;
-
     constructor(private modalService: NgbModal) {
-        this.deck = new cardDeck()
+
     }
-    close(c: card) {
-        this.modal.close(c)
+
+    close(c: CardInDeck) {
+        if (!c.isPicked) {
+            this.modal.close(c)
+        }
+
     }
 }

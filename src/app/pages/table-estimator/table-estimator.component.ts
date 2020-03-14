@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HandValue } from 'src/app/shared/hand/hand.component';
 import { TableValue } from 'src/app/shared/table/table.component';
 import { monteCarlo } from 'src/app/simulator/simulator';
+import { cardDeck } from 'src/app/models/card.models';
 
 @Component({
     selector: 'app-table-estimator',
@@ -11,10 +12,12 @@ import { monteCarlo } from 'src/app/simulator/simulator';
 export class TableEstimatorComponent implements OnInit {
     handCards: HandValue;
     tableValue: TableValue;
+    deck: cardDeck;
 
     constructor() {
         this.handCards = new HandValue()
         this.tableValue = new TableValue()
+        this.deck = new cardDeck()
 
      }
 

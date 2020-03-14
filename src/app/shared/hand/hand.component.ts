@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
-import { card } from '../../models/card.models';
+import { Component, OnInit, ViewChild, Output, EventEmitter, Input } from '@angular/core';
+import { Card, cardDeck } from '../../models/card.models';
 import { CardPickerComponent } from '../card-picker/card-picker.component';
 
 @Component({
@@ -8,6 +8,8 @@ import { CardPickerComponent } from '../card-picker/card-picker.component';
     styleUrls: ['./hand.component.css']
 })
 export class HandComponent implements OnInit {
+
+    @Input() deck: cardDeck;
 
     @Output() chosen = new EventEmitter<HandValue>();
 
@@ -22,8 +24,9 @@ export class HandComponent implements OnInit {
 
     ngOnInit(): void {
     }
-    openCardPicker(c: card) {
+    openCardPicker(c: Card) {
         this.cardPicker.open().then(pickedCard => {
+            this.deck.pickCard(pickedCard, c)
             c.set(pickedCard);
 
             if (this.value.isSet()) {
@@ -34,12 +37,12 @@ export class HandComponent implements OnInit {
 }
 export class HandValue {
 
-    card1: card
-    card2: card
+    card1: Card
+    card2: Card
 
     constructor() {
-        this.card1 = new card()
-        this.card2 = new card()
+        this.card1 = new Card()
+        this.card2 = new Card()
     }
     isSet(): boolean {
         return this.card1.isSet() && this.card2.isSet()

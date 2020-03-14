@@ -2,3 +2,8 @@ img.card {
     height: 75px;
     cursor: pointer;
 }
+
+img.picked{
+    mix-blend-mode: difference;
+    opacity: 0.5;
+}
