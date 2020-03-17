@@ -6,4 +6,7 @@
         <app-hand (chosen)="calculateHand($event)" [deck]="deck"></app-hand>
 
         <p>Hand value: {{handValue}}</p>
+
+        <p><a class="btn btn-secondary" [routerLink]="['/table-estimator', handCards.card1.toString(), handCards.card2.toString()]"
+            role="button">Postflop &raquo;</a></p>
     </div>

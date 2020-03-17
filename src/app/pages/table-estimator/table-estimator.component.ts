@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { HandValue } from 'src/app/shared/hand/hand.component';
-import { TableValue } from 'src/app/shared/table/table.component';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { HandCards, HandComponent } from 'src/app/shared/hand/hand.component';
+import { TableCards } from 'src/app/shared/table/table.component';
 import { monteCarlo } from 'src/app/simulator/simulator';
-import { cardDeck } from 'src/app/models/card.models';
+import { cardDeck, Card } from 'src/app/models/card.models';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'app-table-estimator',
@@ -10,41 +11,56 @@ import { cardDeck } from 'src/app/models/card.models';
     styleUrls: ['./table-estimator.component.css']
 })
 export class TableEstimatorComponent implements OnInit {
-    handCards: HandValue;
-    tableValue: TableValue;
+    handCards: HandCards;
+    tableCards: TableCards;
     deck: cardDeck;
 
-    constructor() {
-        this.handCards = new HandValue()
-        this.tableValue = new TableValue()
+    @ViewChild("hand")
+    hand: HandComponent
+
+    constructor(private route: ActivatedRoute) {
+        this.handCards = new HandCards()
+        this.tableCards = new TableCards()
         this.deck = new cardDeck()
 
-     }
+    }
 
     handValue: string
 
     ngOnInit(): void {
-        this.handValue = "Pick hand cards and table cards"
+        this.handValue = "Pick hand cards and table cards";
+        this.setCardFromRouteParam("handCard1", this.hand.value.card1);
+        this.setCardFromRouteParam("handCard2", this.hand.value.card2);
     }
 
-    setHand(handValue: HandValue) {
+    private setCardFromRouteParam(paramName: string, cardToSet: Card) {
+        const paramMap = this.route.snapshot.paramMap;
+        if (paramMap.has(paramName)) {
+            const cardSymbol = paramMap.get(paramName);
+            const card = Card.fromString(cardSymbol);
+            cardToSet.set(card);
+            this.deck.pickCard(card);
+        }
+    }
+
+    setHand(handValue: HandCards) {
         this.handCards = handValue
         this.calculate()
     }
 
-    setTable(tableValue: TableValue) {
-        this.tableValue = tableValue
+    setTable(tableValue: TableCards) {
+        this.tableCards = tableValue
         this.calculate()
     }
 
     private calculate() {
-        if (!this.handCards.isSet() || !this.tableValue.isSet()) {
+        if (!this.handCards.isSet() || !this.tableCards.isSet()) {
             return
         }
 
         console.time("simulation")
         var results = monteCarlo(this.handCards.getCardSymbolsForPokerCalcLib(),
-            this.tableValue.getCardSymbolsForPokerCalcLib());
+            this.tableCards.getCardSymbolsForPokerCalcLib());
         console.timeEnd("simulation")
 
         const winPercent = results[0] * 100;

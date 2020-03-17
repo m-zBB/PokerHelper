@@ -25,6 +25,10 @@ const routes: Routes = [
         component: HandCalcComponent
     },
     {
+        path: 'table-estimator/:handCard1/:handCard2',
+        component: TableEstimatorComponent
+    },
+    {
         path: 'table-estimator',
         component: TableEstimatorComponent
     },

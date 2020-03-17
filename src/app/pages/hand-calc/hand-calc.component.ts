@@ -1,8 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { CardPickerComponent } from '../../shared/card-picker/card-picker.component';
-import { Card, cardDeck } from '../../models/card.models';
+import { Component, OnInit } from '@angular/core';
+import { cardDeck } from '../../models/card.models';
 import { texasHoldem } from 'hutchison';
-import { HandComponent, HandValue } from '../../shared/hand/hand.component';
+import { HandCards as HandCards } from '../../shared/hand/hand.component';
 
 @Component({
     selector: 'app-hand-calc',
@@ -13,18 +12,21 @@ export class HandCalcComponent implements OnInit {
 
     handValue: string
     deck: any;
+    handCards: HandCards
 
     constructor() {
         this.deck = new cardDeck()
+        this.handCards = new HandCards()
     }
 
     ngOnInit(): void {
         this.handValue = "Pick two cards"
     }
 
-    calculateHand(value: HandValue) {
-        var result = texasHoldem({ hand: value.getCardSymbolsForHutchisonLib()});
+    calculateHand(value: HandCards) {
+        var result = texasHoldem({ hand: value.getCardSymbolsForHutchisonLib() });
         console.log(result)
+        this.handCards = value
 
         const handValue = result.percentile * 100;
         this.handValue = handValue.toFixed(1) + "%"

@@ -11,15 +11,15 @@ export class HandComponent implements OnInit {
 
     @Input() deck: cardDeck;
 
-    @Output() chosen = new EventEmitter<HandValue>();
+    @Output() chosen = new EventEmitter<HandCards>();
 
-    value: HandValue
+    value: HandCards
 
     @ViewChild("cardPicker")
     cardPicker: CardPickerComponent
 
     constructor() {
-        this.value = new HandValue()
+        this.value = new HandCards()
     }
 
     ngOnInit(): void {
@@ -35,7 +35,7 @@ export class HandComponent implements OnInit {
         })
     }
 }
-export class HandValue {
+export class HandCards {
 
     card1: Card
     card2: Card
