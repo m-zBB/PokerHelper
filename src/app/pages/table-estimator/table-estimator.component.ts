@@ -15,9 +15,6 @@ export class TableEstimatorComponent implements OnInit {
     tableCards: TableCards;
     deck: cardDeck;
 
-    @ViewChild("hand")
-    hand: HandComponent
-
     constructor(private route: ActivatedRoute) {
         this.handCards = new HandCards()
         this.tableCards = new TableCards()
@@ -29,9 +26,10 @@ export class TableEstimatorComponent implements OnInit {
 
     ngOnInit(): void {
         this.handValue = "Pick hand cards and table cards";
-        this.setCardFromRouteParam("handCard1", this.hand.value.card1);
-        this.setCardFromRouteParam("handCard2", this.hand.value.card2);
+        this.setCardFromRouteParam("handCard1", this.handCards.card1);
+        this.setCardFromRouteParam("handCard2", this.handCards.card2);
     }
+
 
     private setCardFromRouteParam(paramName: string, cardToSet: Card) {
         const paramMap = this.route.snapshot.paramMap;

@@ -2,7 +2,7 @@
     <div class="container">
         <h1 class="display-3">Postflop estimator</h1>
 
-        <app-hand #hand (chosen)="setHand($event)" [deck]="deck"></app-hand>
+        <app-hand [value]="handCards" (chosen)="setHand($event)" [deck]="deck"></app-hand>
         <app-table (chosen)="setTable($event)" [deck]="deck"></app-table>
 
         <p>Hand value: {{handValue}}</p>

@@ -11,19 +11,24 @@ export class HandComponent implements OnInit {
 
     @Input() deck: cardDeck;
 
+    @Input() value: HandCards
+
     @Output() chosen = new EventEmitter<HandCards>();
 
-    value: HandCards
 
     @ViewChild("cardPicker")
     cardPicker: CardPickerComponent
 
     constructor() {
-        this.value = new HandCards()
+
     }
 
     ngOnInit(): void {
+        if (this.value === undefined) {
+            this.value = new HandCards()
+        }
     }
+
     openCardPicker(c: Card) {
         this.cardPicker.open().then(pickedCard => {
             this.deck.pickCard(pickedCard, c)
