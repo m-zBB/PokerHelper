@@ -107,7 +107,7 @@ export class Card {
         return this._rank.toString() + this._color.toString()
     }
     getSymbolForPokerCalcLib(): string {
-        if (this._rank === CardRank.ten) {
+        if (this._rank.equals(CardRank.ten)) {
             return "10" + this._color
         }
         return this._rank.toString() + this._color.toString()
