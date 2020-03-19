@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { HandCards, HandComponent } from 'src/app/shared/hand/hand.component';
+import { Component, OnInit } from '@angular/core';
+import { HandCards } from 'src/app/shared/hand/hand.component';
 import { TableCards } from 'src/app/shared/table/table.component';
 import { monteCarlo } from 'src/app/simulator/simulator';
 import { cardDeck, Card } from 'src/app/models/card.models';
@@ -14,12 +14,12 @@ export class TableEstimatorComponent implements OnInit {
     handCards: HandCards;
     tableCards: TableCards;
     deck: cardDeck;
+    numberOfPlayers: number;
 
     constructor(private route: ActivatedRoute) {
         this.handCards = new HandCards()
         this.tableCards = new TableCards()
         this.deck = new cardDeck()
-
     }
 
     handValue: string
@@ -28,6 +28,7 @@ export class TableEstimatorComponent implements OnInit {
         this.handValue = "Pick hand cards and table cards";
         this.setCardFromRouteParam("handCard1", this.handCards.card1);
         this.setCardFromRouteParam("handCard2", this.handCards.card2);
+        this.numberOfPlayers = 2
     }
 
 
@@ -41,14 +42,20 @@ export class TableEstimatorComponent implements OnInit {
         }
     }
 
+    onNumOfPlayersChange($event: any) {
+        const numOfPlayers: string = $event.target.value;
+        this.numberOfPlayers = parseInt(numOfPlayers);
+        this.calculate();
+    }
+
     setHand(handValue: HandCards) {
-        this.handCards = handValue
-        this.calculate()
+        this.handCards = handValue;
+        this.calculate();
     }
 
     setTable(tableValue: TableCards) {
-        this.tableCards = tableValue
-        this.calculate()
+        this.tableCards = tableValue;
+        this.calculate();
     }
 
     private calculate() {
@@ -58,7 +65,7 @@ export class TableEstimatorComponent implements OnInit {
 
         console.time("simulation")
         var results = monteCarlo(this.handCards.getCardSymbolsForPokerCalcLib(),
-            this.tableCards.getCardSymbolsForPokerCalcLib());
+            this.tableCards.getCardSymbolsForPokerCalcLib(), this.numberOfPlayers);
         console.timeEnd("simulation")
 
         const winPercent = results[0] * 100;

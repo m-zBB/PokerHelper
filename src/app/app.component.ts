@@ -1,7 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import pokerCalc from 'poker-calc';
-import { cardDeck } from './models/card.models';
-import { monteCarlo } from './simulator/simulator';
 
 @Component({
     selector: 'app-root',
@@ -12,6 +9,6 @@ export class AppComponent implements OnInit {
     title = 'poker-helper';
 
     ngOnInit() {
-  
+
     }
 }
