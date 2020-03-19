@@ -53,12 +53,15 @@ export class TableCards {
         this.card5 = new Card()
     }
     isSet(): boolean {
-        return this.card1.isSet() && this.card2.isSet()
-            && this.card3.isSet() && this.card4.isSet() && this.card5.isSet()
+        return this.card1.isSet() && this.card2.isSet() && this.card3.isSet()
+        //  && this.card4.isSet()
+        //  && this.card5.isSet()
     }
     getCardSymbolsForPokerCalcLib(): string[] {
-        return [this.card1.getSymbolForPokerCalcLib(), this.card2.getSymbolForPokerCalcLib(), this.card3.getSymbolForPokerCalcLib(),
-        this.card4.getSymbolForPokerCalcLib(), this.card5.getSymbolForPokerCalcLib()]
+        return [this.card1.getSymbolForPokerCalcLib(), this.card2.getSymbolForPokerCalcLib(), this.card3.getSymbolForPokerCalcLib()
+         //   , this.card4.getSymbolForPokerCalcLib()
+        //    , this.card5.getSymbolForPokerCalcLib()
+        ]
     }
 
 }

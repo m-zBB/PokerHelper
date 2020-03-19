@@ -78,6 +78,11 @@ function simulate(hand: string[], table: string[], players: number) {
     var results: any[] = pokerCalc.getHoldemWinner(params, { compactCards: true });
 
 
+    if (Math.random() <= 0.01) {
+        console.log("players: ", hands.reduce((s, p) => {
+            return s += " " + p.playerId + ": " + p.cards.join(",")
+        }, ""), "table: ", table.join(","), "wins:", results.map(p => p.playerId).join(","))
+    }
     if (results.length === 1 && results[0].playerId === 0) {
         return outcomes.WIN
     }
