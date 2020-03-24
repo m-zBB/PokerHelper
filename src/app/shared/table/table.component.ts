@@ -71,8 +71,9 @@ export class TableCards {
     }
     getCardSymbolsForPokerCalcLib(): string[] {
         return [this.card1.getSymbolForPokerCalcLib(), this.card2.getSymbolForPokerCalcLib(),
-        this.card3.getSymbolForPokerCalcLib()
-        ]
+        this.card3.getSymbolForPokerCalcLib()]
+        // jezeli karta 4 jest ustawiona to dodac ja do tablicy
+        // jezeli karta 5 jest ustawiona to dodac ja do tablicy
     }
 
 }
