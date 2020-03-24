@@ -33,7 +33,7 @@ export class CardColor {
 const validRanks: string[] = ["A", "K", "Q", "J", "T", "9", "8", "7", "6", "5", "4", "3", "2"];
 
 export class CardRank {
-    static allRanks: CardRank[] = [new CardRank("A"),new CardRank("K"), new CardRank("Q"), new CardRank("J"),
+    static allRanks: CardRank[] = [new CardRank("A"), new CardRank("K"), new CardRank("Q"), new CardRank("J"),
     new CardRank("T"), new CardRank("9"), new CardRank("8"), new CardRank("7"), new CardRank("6"),
     new CardRank("5"), new CardRank("4"), new CardRank("3"), new CardRank("2")];
 
@@ -138,8 +138,13 @@ export class cardDeck {
         }
         return cards
     }
+
     getFullDeck(): Card[] {
-        const cards: Card[] = []
+        return this._getFullDeck()
+    }
+
+    private _getFullDeck(): CardInDeck[] {
+        const cards: CardInDeck[] = []
         cards.push(...this.spades)
         cards.push(...this.hearts)
         cards.push(...this.diamonds)
@@ -152,6 +157,17 @@ export class cardDeck {
         if (oldCard && oldCard.isSet()) {
             this.findCard(oldCard).isPicked = false
         }
+    }
+
+    pickRandomCard(oldCard?: Card): Card {
+        const availableCards = this._getFullDeck().filter(c => !c.isPicked);
+
+        const randomIndex = Math.floor(Math.random() * availableCards.length);
+        const randomCard = availableCards[randomIndex];
+
+        this.pickCard(randomCard, oldCard);
+
+        return randomCard;
     }
 
     private findCard(card: Card): CardInDeck {

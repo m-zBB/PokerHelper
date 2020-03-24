@@ -1,4 +1,8 @@
 <div class="container">
+    <label class="input-group-text my-3">Hand cards</label>
+
+    <button type="button" class="btn btn-shuffle" (click)="shuffle()">Shuffle hand cards</button>
+
     <img src="{{value.card1.getImageSrc()}}" class="cardpick" (click)="openCardPicker(value.card1)">
     <img src="{{value.card2.getImageSrc()}}" class="cardpick" (click)="openCardPicker(value.card2)">
 </div>

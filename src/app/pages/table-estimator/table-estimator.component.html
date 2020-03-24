@@ -1,10 +1,11 @@
 <div class="jumbotron">
     <div class="container">
         <h1 class="display-3">Postflop estimator</h1>
-        <label class="input-group-text my-3">Hand cards</label>
+
         <app-hand [value]="handCards" (chosen)="setHand($event)" [deck]="deck"></app-hand>
-        <label class="input-group-text my-3">Table cards</label>
+
         <app-table (chosen)="setTable($event)" [deck]="deck"></app-table>
+        
 
         <div class="input-group my-3" id="numOfPlayersGroup">
             <div class="input-group-prepend">

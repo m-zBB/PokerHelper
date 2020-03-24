@@ -39,6 +39,15 @@ export class HandComponent implements OnInit {
             }
         })
     }
+    private shuffleCard(card: Card) {
+        card.set(this.deck.pickRandomCard(card));
+    }
+
+    shuffle() {
+        this.shuffleCard(this.value.card1);
+        this.shuffleCard(this.value.card2);
+        this.chosen.emit(this.value)
+    }
 }
 export class HandCards {
 

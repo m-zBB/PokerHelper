@@ -1,4 +1,8 @@
 <div class="container">
+    <label class="input-group-text my-3">Table cards</label>
+
+    <button type="button" class="btn btn-shuffle" (click)="shuffle()">Shuffle table cards</button>
+
     <img src="{{value.card1.getImageSrc()}}" class="cardpick" (click)="openCardPicker(value.card1)">
     <img src="{{value.card2.getImageSrc()}}" class="cardpick" (click)="openCardPicker(value.card2)">
     <img src="{{value.card3.getImageSrc()}}" class="cardpick" (click)="openCardPicker(value.card3)">
