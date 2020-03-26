@@ -30,24 +30,46 @@ export class CardColor {
     }
 }
 
-const validRanks: string[] = ["A", "K", "Q", "J", "T", "9", "8", "7", "6", "5", "4", "3", "2"];
+const ranksMap = new Map([
+    [2, '2'],
+    [3, '3'],
+    [4, "4"],
+    [5, "5"],
+    [6, "6"],
+    [7, "7"],
+    [8, "8"],
+    [9, "9"],
+    [10, "T"],
+    [11, "J"],
+    [12, "Q"],
+    [13, "K"],
+    [14, "A"]
+]);
+const ranksInvertedMap = new Map();
+for (const [key, value] of ranksMap) {
+    ranksInvertedMap.set(value, key);
+}
 
 export class CardRank {
     static allRanks: CardRank[] = [new CardRank("A"), new CardRank("K"), new CardRank("Q"), new CardRank("J"),
     new CardRank("T"), new CardRank("9"), new CardRank("8"), new CardRank("7"), new CardRank("6"),
     new CardRank("5"), new CardRank("4"), new CardRank("3"), new CardRank("2")];
 
-    private value: string
+    private _value: number
+    get value(): number {
+        return this._value;
+    }
+
     static ten: CardRank = new CardRank("T");
 
     constructor(rank: string) {
-        if (!validRanks.includes(rank)) {
+        if (!ranksInvertedMap.has(rank)) {
             throw new RangeError("Invalid rank: " + rank)
         }
-        this.value = rank
+        this._value = ranksInvertedMap.get(rank)
     }
     toString(): string {
-        return this.value
+        return ranksMap.get(this._value)
     }
 
     equals(otherRank: CardRank): boolean {
