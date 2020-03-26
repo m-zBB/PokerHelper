@@ -76,12 +76,11 @@ function simulate(hand: string[], table: string[], players: number) {
     }
 
     var results: any[];
-
     try {
         results = pokerCalc.getHoldemWinner(params, { compactCards: true });
     } catch (e) {
-        console.error(e)
         logCards(hands, table, results);
+        throw e;
     }
 
     if (Math.random() <= 0.01) {
@@ -104,11 +103,10 @@ function logCards(hands, table, results) {
             return s += " " + p.playerId + ": " + p.cards.join(",")
         }, ""),
         "table: ",
-        table.join(","),
-        "wins:"
+        table.join(",")
     ]
     if (results) {
-        logs.push(results.map(p => p.playerId).join(","))
+        logs.push("wins:", results.map(p => p.playerId).join(","))
      }
     console.log(...logs)
 }
