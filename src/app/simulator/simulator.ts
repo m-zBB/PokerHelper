@@ -75,13 +75,17 @@ function simulate(hand: string[], table: string[], players: number) {
         "playerCards": hands
     }
 
-    var results: any[] = pokerCalc.getHoldemWinner(params, { compactCards: true });
+    var results: any[];
 
+    try {
+        results = pokerCalc.getHoldemWinner(params, { compactCards: true });
+    } catch (e) {
+        console.error(e)
+        logCards(hands, table, results);
+    }
 
     if (Math.random() <= 0.01) {
-        console.log("players: ", hands.reduce((s, p) => {
-            return s += " " + p.playerId + ": " + p.cards.join(",")
-        }, ""), "table: ", table.join(","), "wins:", results.map(p => p.playerId).join(","))
+        logCards(hands, table, results)
     }
     if (results.length === 1 && results[0].playerId === 0) {
         return outcomes.WIN
@@ -91,5 +95,21 @@ function simulate(hand: string[], table: string[], players: number) {
     }
     return outcomes.LOSE
 
+}
+
+function logCards(hands, table, results) {
+    const logs: string[] = [
+        "players: ",
+        hands.reduce((s, p) => {
+            return s += " " + p.playerId + ": " + p.cards.join(",")
+        }, ""),
+        "table: ",
+        table.join(","),
+        "wins:"
+    ]
+    if (results) {
+        logs.push(results.map(p => p.playerId).join(","))
+     }
+    console.log(...logs)
 }
 

@@ -70,10 +70,19 @@ export class TableCards {
         return this.card1.isSet() && this.card2.isSet() && this.card3.isSet()
     }
     getCardSymbolsForPokerCalcLib(): string[] {
-        return [this.card1.getSymbolForPokerCalcLib(), this.card2.getSymbolForPokerCalcLib(),
-        this.card3.getSymbolForPokerCalcLib()]
-        // jezeli karta 4 jest ustawiona to dodac ja do tablicy
-        // jezeli karta 5 jest ustawiona to dodac ja do tablicy
+        const cards: string[] = [
+            this.card1.getSymbolForPokerCalcLib(),
+            this.card2.getSymbolForPokerCalcLib(),
+            this.card3.getSymbolForPokerCalcLib()
+        ]
+
+        if (this.card4.isSet()) {
+            cards.push(this.card4.getSymbolForPokerCalcLib())
+        }
+        if (this.card4.isSet() && this.card5.isSet()) {
+            cards.push(this.card5.getSymbolForPokerCalcLib())
+        }
+        return cards
     }
 
 }
