@@ -28,6 +28,18 @@ describe('HandEstimator', () => {
     it('should return 14 for high card ace', () => {
         expect(HandEstimator.estimate(toCards("2c", "3c", "4c", "5c", "Ah"))).toEqual(14);
     });
+
+    it('should return 10033 for one pair of twos', () => {
+        expect(HandEstimator.estimate(toCards("2c", "6d", "4c", "2d", "Kh"))).toEqual(10033);
+    });
+
+    it('should return 10107 for one pair of twos', () => {
+        expect(HandEstimator.estimate(toCards("Tc", "6d", "Tc", "2d", "7h"))).toEqual(10107);
+    });
+
+    // it('should return 102 for two pairs', () => {
+    //     expect(HandEstimator.estimate(toCards("Qc", "Qd", "4c", "2d", "Kh"))).toEqual(102);
+    // });
 });
 
 function toCards(card1: string, card2: string, card3: string, card4: string, card5: string): Card[] {
