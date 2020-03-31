@@ -5,21 +5,21 @@ describe('HandEstimator', () => {
 
     const expectedError = "HandEstimator.estimate requires array of five not empty cards"
 
-    it('should return error on undefined', () =>{
-        expect(HandEstimator.estimate(undefined)).toThrowError(expectedError)
+    it('should throw error on undefined', () =>{
+        expect(() => HandEstimator.estimate(undefined)).toThrowError(expectedError)
     });
 
-    // it('should return error on empty array', () =>{
-    //     expect(HandEstimator.estimate([])).toThrowError(expectedError)
-    // });
+    it('should return error on empty array', () =>{
+        expect(() => HandEstimator.estimate([])).toThrowError(expectedError)
+    });
 
-    // it('should return error on too short array', () =>{
-    //     expect(HandEstimator.estimate([new Card(), new Card()])).toThrowError(expectedError)
-    // });
+    it('should return error on too short array', () =>{
+        expect(() => HandEstimator.estimate([new Card(), new Card()])).toThrowError(expectedError)
+    });
 
-    // it('should return error when any card is not set', () =>{
-    //     expect(HandEstimator.estimate([new Card(), new Card(), new Card(), new Card(), new Card()])).toThrowError(expectedError)
-    // });
+    it('should return error when any card is not set', () =>{
+        expect(() => HandEstimator.estimate([new Card(), new Card(), new Card(), new Card(), new Card()])).toThrowError(expectedError)
+    });
 
     it('should return 7 for high card seven', () => {
         expect(HandEstimator.estimate(toCards("2c", "3c", "4c", "5c", "7h"))).toEqual(7);
