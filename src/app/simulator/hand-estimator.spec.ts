@@ -46,6 +46,8 @@ describe('HandEstimator', () => {
     });
 });
 
+// 1000000 + kickery
+
 function toCards(card1: string, card2: string, card3: string, card4: string, card5: string): Card[] {
     return [Card.fromString(card1), Card.fromString(card2), Card.fromString(card3),
             Card.fromString(card4), Card.fromString(card5),]

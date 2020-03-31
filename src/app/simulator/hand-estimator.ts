@@ -42,9 +42,13 @@ export class HandEstimator {
 
         return ranks[4]
     }
+// gethigher --> getkickerfortwo pairs
+
     static getHighCardForTwoPairs(ranks: number[], pairs: number[]): number {
         return ranks.filter(r => !pairs.includes(r))[0]
     }
+
+    // gethigher --> getkickersSUM forOne pair
 
     private static getHighCardForOnePair(ranks: number[], rankToDiscard: number):number {
         const filteredRanks = ranks.filter(r => r != rankToDiscard).sort((a, b) => a - b);
