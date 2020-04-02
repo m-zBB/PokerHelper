@@ -13,7 +13,6 @@ export class HandEstimator {
             throw new Error("HandEstimator.estimate requires array of five not empty cards")
         }
 
-
         const ranks: number[] = cards.map(c => c.rank.value).sort(NumbersAscending)
 
         const rankCounts = new Map<number, number>()
@@ -37,6 +36,18 @@ export class HandEstimator {
 
         if (fullHouse) {
             return 6000000 + threeOfKind[0]*10 + pairs[0]
+        }
+
+        const minMaxDiff = ranks[4] - ranks[0]
+        const straight = (minMaxDiff === 4 || minMaxDiff === 12) && pairs.length === 0 && threeOfKind.length === 0
+        const straightWithAceAsOne = straight && ranks[4] === 14 && ranks[0] === 2
+
+        if (straightWithAceAsOne) {
+            return 4000005
+        }
+
+        if (straight) {
+            return 4000000 + ranks[4]
         }
 
         if (threeOfKind.length === 1) {
@@ -83,7 +94,4 @@ export class HandEstimator {
         }
         return sameKinds
     }
-
-
-
 }
