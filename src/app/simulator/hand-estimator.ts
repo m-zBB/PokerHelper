@@ -27,9 +27,14 @@ export class HandEstimator {
 
         const sameKinds: Map<number, number[]> = this.getRanksOfTheSameKind(rankCounts)
 
+        const fourOfKind = sameKinds.get(4);
+        if (fourOfKind.length === 1) {
+            return 4000000 + fourOfKind[0]*10 + this.getOneKicker(ranks, fourOfKind)
+        }
+
         const threeOfKind = sameKinds.get(3);
         if (threeOfKind.length === 1) {
-            return 3000000 + threeOfKind[0]*100 + this.getKickersSumForThreeOfKind(ranks, threeOfKind[0])
+            return 3000000 + threeOfKind[0]*100 + this.getSumOfTwoKickers(ranks, threeOfKind[0])
         }
 
         const pairs = sameKinds.get(2);
@@ -37,32 +42,35 @@ export class HandEstimator {
             const sortedPairs = pairs.sort(NumbersAscending)
             const lowerPair = sortedPairs[0]
             const higherPair = sortedPairs[1]
-            return 2000000 + higherPair * 100 + lowerPair * 10 + this.getKickerForTwoPairs(ranks, pairs)
+            return 2000000 + higherPair * 100 + lowerPair * 10 + this.getOneKicker(ranks, pairs)
         }
 
         if (pairs.length === 1) {
             const pairRank = pairs[0]
-            return 1000000 + pairRank * 1000 + this.getKickerSumForOnePair(ranks, pairRank)
+            return 1000000 + pairRank * 1000 + this.getSumOfThreeKickers(ranks, pairRank)
         }
 
         return ranks[4] * 10000 + ranks[3] * 1000 + ranks[2] * 100 + ranks[1] * 10 + ranks[0]
     }
-    static getKickersSumForThreeOfKind(ranks: number[], rankToDiscard: number): number {
+
+
+
+    static getSumOfTwoKickers(ranks: number[], rankToDiscard: number): number {
         const kickersRanks = ranks.filter(r => r != rankToDiscard).sort(NumbersAscending)
         return kickersRanks[1] * 10 + kickersRanks[0]
     }
 
-    private static getKickerForTwoPairs(ranks: number[], pairs: number[]): number {
+    private static getOneKicker(ranks: number[], pairs: number[]): number {
         return ranks.filter(r => !pairs.includes(r))[0]
     }
 
-    private static getKickerSumForOnePair(ranks: number[], rankToDiscard: number): number {
+    private static getSumOfThreeKickers(ranks: number[], rankToDiscard: number): number {
         const kickersRanks = ranks.filter(r => r != rankToDiscard).sort(NumbersAscending)
         return kickersRanks[2] * 100 + kickersRanks[1] * 10 + kickersRanks[0]
     }
 
     private static getRanksOfTheSameKind(rankCounts: Map<number, number>): Map<number, number[]> {
-        const sameKinds: Map<number, number[]> = new Map<number, number[]>([[2, []], [3, []]]);
+        const sameKinds: Map<number, number[]> = new Map<number, number[]>([[2, []], [3, []], [4, []]]);
         for (var [rank, count] of rankCounts) {
             if (count !== 1) {
                 sameKinds.get(count).push(rank)

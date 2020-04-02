@@ -52,6 +52,14 @@ describe('HandEstimator', () => {
     it('should return 3001364 for three of a kind', () => {
         expect(HandEstimator.estimate(toCards("Kc", "6d", "Kd", "Kh", "4h"))).toEqual(3001364);
     });
+
+    it('should return 4000126 for four of a kind', () => {
+        expect(HandEstimator.estimate(toCards("Qc", "6d","Qd", "Qh", "Qs"))).toEqual(4000126);
+    });
+
+    it('should return 4000072 for four of a kind', () => {
+        expect(HandEstimator.estimate(toCards("6c", "6d","Qd", "6h", "6s"))).toEqual(4000072);
+    });
 });
 
 
