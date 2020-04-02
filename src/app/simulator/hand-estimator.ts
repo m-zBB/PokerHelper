@@ -31,28 +31,26 @@ export class HandEstimator {
             const sortedPairs = pairs.sort(NumbersAscending)
             const lowerPair = sortedPairs[0]
             const higherPair = sortedPairs[1]
-            return 20000 + higherPair * 100 + lowerPair * 10 + this.getHighCardForTwoPairs(ranks, pairs)
+            return 2000000 + higherPair * 100 + lowerPair * 10 + this.getKickerForTwoPairs(ranks, pairs)
         }
 
         if (pairs.length === 1) {
             const pairRank = pairs[0]
-            return 10000 + pairRank * 10 + this.getHighCardForOnePair(ranks, pairRank)
+            return 1000000 + pairRank * 1000 + this.getKickerSumForOnePair(ranks, pairRank)
         }
 
-
-        return ranks[4]
+        return ranks[4]*10000 + ranks[3]*1000 + ranks[2]*100 + ranks[1]*10 + ranks[0]
     }
-// gethigher --> getkickerfortwo pairs
 
-    static getHighCardForTwoPairs(ranks: number[], pairs: number[]): number {
+    private static getKickerForTwoPairs(ranks: number[], pairs: number[]): number {
         return ranks.filter(r => !pairs.includes(r))[0]
+
+
     }
 
-    // gethigher --> getkickersSUM forOne pair
-
-    private static getHighCardForOnePair(ranks: number[], rankToDiscard: number):number {
-        const filteredRanks = ranks.filter(r => r != rankToDiscard).sort((a, b) => a - b);
-        return filteredRanks[2]
+    private static getKickerSumForOnePair(ranks: number[], rankToDiscard: number):number {
+        const kickersRanks = ranks.filter(r => r != rankToDiscard).sort(NumbersAscending)
+        return kickersRanks[2]*100 + kickersRanks[1]*10 + kickersRanks[0]
     }
 
     private static getPairs(rankCounts: Map<number, number>): number[] {

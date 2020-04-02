@@ -22,31 +22,30 @@ describe('HandEstimator', () => {
     });
 
     it('should return 7 for high card seven', () => {
-        expect(HandEstimator.estimate(toCards("2c", "3c", "4c", "5c", "7h"))).toEqual(7);
+        expect(HandEstimator.estimate(toCards("2c", "3c", "4c", "5c", "7h"))).toEqual(75432);
     });
 
     it('should return 14 for high card ace', () => {
-        expect(HandEstimator.estimate(toCards("2c", "3c", "4c", "5c", "Ah"))).toEqual(14);
+        expect(HandEstimator.estimate(toCards("2c", "3c", "4c", "5c", "Ah"))).toEqual(145432);
     });
 
-    it('should return 10033 for one pair of twos', () => {
-        expect(HandEstimator.estimate(toCards("2c", "6d", "4c", "2d", "Kh"))).toEqual(10033);
+    it('should return 1003364 for one pair of twos', () => {
+        expect(HandEstimator.estimate(toCards("2c", "6d", "4c", "2d", "Kh"))).toEqual(1003364);
     });
 
-    it('should return 10107 for one pair of twos', () => {
-        expect(HandEstimator.estimate(toCards("Tc", "6d", "Tc", "2d", "7h"))).toEqual(10107);
+    it('should return 1010762 for one pair of twos', () => {
+        expect(HandEstimator.estimate(toCards("Tc", "6d", "Tc", "2d", "7h"))).toEqual(1010762);
     });
 
-    it('should return 21434 for two pairs', () => {
-        expect(HandEstimator.estimate(toCards("Qc", "Qd", "Ac", "Kd", "Kh"))).toEqual(21434);
+    it('should return 2001434 for two pairs', () => {
+        expect(HandEstimator.estimate(toCards("Qc", "Qd", "Ac", "Kd", "Kh"))).toEqual(2001434);
     });
 
-    it('should return 20986 for two pairs', () => {
-        expect(HandEstimator.estimate(toCards("8c", "9d", "8c", "6d", "9h"))).toEqual(20986);
+    it('should return 2000986 for two pairs', () => {
+        expect(HandEstimator.estimate(toCards("8c", "9d", "8c", "6d", "9h"))).toEqual(2000986);
     });
 });
 
-// 1000000 + kickery
 
 function toCards(card1: string, card2: string, card3: string, card4: string, card5: string): Card[] {
     return [Card.fromString(card1), Card.fromString(card2), Card.fromString(card3),
