@@ -29,15 +29,20 @@ export class HandEstimator {
 
         const fourOfKind = sameKinds.get(4);
         if (fourOfKind.length === 1) {
-            return 4000000 + fourOfKind[0]*10 + this.getOneKicker(ranks, fourOfKind)
+            return 7000000 + fourOfKind[0]*10 + this.getOneKicker(ranks, fourOfKind)
+        }
+        const threeOfKind = sameKinds.get(3);
+        const pairs = sameKinds.get(2);
+        const fullHouse = threeOfKind.length === 1 && pairs.length === 1
+
+        if (fullHouse) {
+            return 6000000 + threeOfKind[0]*10 + pairs[0]
         }
 
-        const threeOfKind = sameKinds.get(3);
         if (threeOfKind.length === 1) {
             return 3000000 + threeOfKind[0]*100 + this.getSumOfTwoKickers(ranks, threeOfKind[0])
         }
 
-        const pairs = sameKinds.get(2);
         if (pairs.length === 2) {
             const sortedPairs = pairs.sort(NumbersAscending)
             const lowerPair = sortedPairs[0]

@@ -53,13 +53,22 @@ describe('HandEstimator', () => {
         expect(HandEstimator.estimate(toCards("Kc", "6d", "Kd", "Kh", "4h"))).toEqual(3001364);
     });
 
-    it('should return 4000126 for four of a kind', () => {
-        expect(HandEstimator.estimate(toCards("Qc", "6d","Qd", "Qh", "Qs"))).toEqual(4000126);
+    it('should return 7000126 for four of a kind', () => {
+        expect(HandEstimator.estimate(toCards("Qc", "6d","Qd", "Qh", "Qs"))).toEqual(7000126);
     });
 
-    it('should return 4000072 for four of a kind', () => {
-        expect(HandEstimator.estimate(toCards("6c", "6d","Qd", "6h", "6s"))).toEqual(4000072);
+    it('should return 7000072 for four of a kind', () => {
+        expect(HandEstimator.estimate(toCards("6c", "6d","Qd", "6h", "6s"))).toEqual(7000072);
     });
+
+    it('should return 6000082 for full house', () => {
+        expect(HandEstimator.estimate(toCards("7c", "7d","Qd", "7h", "Qs"))).toEqual(6000082);
+    });
+
+    it('should return 6000026 for full house', () => {
+        expect(HandEstimator.estimate(toCards("6c", "6d","2d", "2h", "2s"))).toEqual(6000026);
+    });
+
 });
 
 
