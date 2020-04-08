@@ -1,124 +1,151 @@
-import { HandEstimator } from "./hand-estimator";
+import { HandEstimator, Player } from "./hand-estimator";
 import { Card } from '../models/card.models';
 
-describe('HandEstimator', () => {
+describe('getHandValue', () => {
 
     const expectedError = "HandEstimator.estimate requires array of five not empty cards"
 
     it('should throw error on undefined', () =>{
-        expect(() => HandEstimator.estimate(undefined)).toThrowError(expectedError)
+        expect(() => HandEstimator.getHandValue(undefined)).toThrowError(expectedError)
     });
 
     it('should return error on empty array', () =>{
-        expect(() => HandEstimator.estimate([])).toThrowError(expectedError)
+        expect(() => HandEstimator.getHandValue([])).toThrowError(expectedError)
     });
 
     it('should return error on too short array', () =>{
-        expect(() => HandEstimator.estimate([new Card(), new Card()])).toThrowError(expectedError)
+        expect(() => HandEstimator.getHandValue([new Card(), new Card()])).toThrowError(expectedError)
     });
 
     it('should return error when any card is not set', () =>{
-        expect(() => HandEstimator.estimate([new Card(), new Card(), new Card(), new Card(), new Card()])).toThrowError(expectedError)
+        expect(() => HandEstimator.getHandValue([new Card(), new Card(), new Card(), new Card(), new Card()])).toThrowError(expectedError)
     });
 
     it('should return 7 for high card seven', () => {
-        expect(HandEstimator.estimate(toCards("2c", "3c", "4c", "5c", "7h"))).toEqual(75432);
+        expect(HandEstimator.getHandValue(create5Cards("2c", "3c", "4c", "5c", "7h"))).toEqual(75432);
     });
 
     it('should return 14 for high card ace', () => {
-        expect(HandEstimator.estimate(toCards("9c", "3c", "4c", "5c", "Ah"))).toEqual(149543);
+        expect(HandEstimator.getHandValue(create5Cards("9c", "3c", "4c", "5c", "Ah"))).toEqual(149543);
     });
 
     it('should return 1003364 for one pair of twos', () => {
-        expect(HandEstimator.estimate(toCards("2c", "6d", "4c", "2d", "Kh"))).toEqual(1003364);
+        expect(HandEstimator.getHandValue(create5Cards("2c", "6d", "4c", "2d", "Kh"))).toEqual(1003364);
     });
 
     it('should return 1010762 for one pair of twos', () => {
-        expect(HandEstimator.estimate(toCards("Tc", "6d", "Tc", "2d", "7h"))).toEqual(1010762);
+        expect(HandEstimator.getHandValue(create5Cards("Tc", "6d", "Tc", "2d", "7h"))).toEqual(1010762);
     });
 
     it('should return 2001434 for two pairs', () => {
-        expect(HandEstimator.estimate(toCards("Qc", "Qd", "Ac", "Kd", "Kh"))).toEqual(2001434);
+        expect(HandEstimator.getHandValue(create5Cards("Qc", "Qd", "Ac", "Kd", "Kh"))).toEqual(2001434);
     });
 
     it('should return 2000986 for two pairs', () => {
-        expect(HandEstimator.estimate(toCards("8c", "9d", "8c", "6d", "9h"))).toEqual(2000986);
+        expect(HandEstimator.getHandValue(create5Cards("8c", "9d", "8c", "6d", "9h"))).toEqual(2000986);
     });
 
     it('should return 3000986 for three of a kind', () => {
-        expect(HandEstimator.estimate(toCards("9c", "9d", "8c", "6d", "9h"))).toEqual(3000986);
+        expect(HandEstimator.getHandValue(create5Cards("9c", "9d", "8c", "6d", "9h"))).toEqual(3000986);
     });
 
     it('should return 3001364 for three of a kind', () => {
-        expect(HandEstimator.estimate(toCards("Kc", "6d", "Kd", "Kh", "4h"))).toEqual(3001364);
+        expect(HandEstimator.getHandValue(create5Cards("Kc", "6d", "Kd", "Kh", "4h"))).toEqual(3001364);
     });
 
     it('should return 7000126 for four of a kind', () => {
-        expect(HandEstimator.estimate(toCards("Qc", "6d", "Qd", "Qh", "Qs"))).toEqual(7000126);
+        expect(HandEstimator.getHandValue(create5Cards("Qc", "6d", "Qd", "Qh", "Qs"))).toEqual(7000126);
     });
 
     it('should return 7000072 for four of a kind', () => {
-        expect(HandEstimator.estimate(toCards("6c", "6d", "Qd", "6h", "6s"))).toEqual(7000072);
+        expect(HandEstimator.getHandValue(create5Cards("6c", "6d", "Qd", "6h", "6s"))).toEqual(7000072);
     });
 
     it('should return 6000082 for full house', () => {
-        expect(HandEstimator.estimate(toCards("7c", "7d", "Qd", "7h", "Qs"))).toEqual(6000082);
+        expect(HandEstimator.getHandValue(create5Cards("7c", "7d", "Qd", "7h", "Qs"))).toEqual(6000082);
     });
 
     it('should return 6000026 for full house', () => {
-        expect(HandEstimator.estimate(toCards("6c", "6d", "2d", "2h", "2s"))).toEqual(6000026);
+        expect(HandEstimator.getHandValue(create5Cards("6c", "6d", "2d", "2h", "2s"))).toEqual(6000026);
     });
 
     it('should not return straight for pair', () => {
-        expect(HandEstimator.estimate(toCards("Tc", "Td", "Ad", "Qh", "Ks"))).toEqual(1011542);
+        expect(HandEstimator.getHandValue(create5Cards("Tc", "Td", "Ad", "Qh", "Ks"))).toEqual(1011542);
     });
 
     it('should not return straight for two pair', () => {
-        expect(HandEstimator.estimate(toCards("Ac", "Td", "Ad", "Th", "Js"))).toEqual(2001511);
+        expect(HandEstimator.getHandValue(create5Cards("Ac", "Td", "Ad", "Th", "Js"))).toEqual(2001511);
     });
 
     it('should not return straight for three of a kind', () => {
-        expect(HandEstimator.estimate(toCards("Tc", "Jd", "Ad", "Jh", "Js"))).toEqual(3001250);
+        expect(HandEstimator.getHandValue(create5Cards("Tc", "Jd", "Ad", "Jh", "Js"))).toEqual(3001250);
     });
 
     it('should return proper value for straight with ace as one', () => {
-        expect(HandEstimator.estimate(toCards("2s", "5s", "Ad", "4s", "3s"))).toEqual(4000005);
+        expect(HandEstimator.getHandValue(create5Cards("2s", "5s", "Ad", "4s", "3s"))).toEqual(4000005);
     });
 
     it('should return proper value for straight', () => {
-        expect(HandEstimator.estimate(toCards("6s", "4c", "2d", "5s", "3d"))).toEqual(4000006);
+        expect(HandEstimator.getHandValue(create5Cards("6s", "4c", "2d", "5s", "3d"))).toEqual(4000006);
     });
 
     it('should return proper value for straight', () => {
-        expect(HandEstimator.estimate(toCards("As", "Tc", "Qd", "Jc", "Kh"))).toEqual(4000014);
+        expect(HandEstimator.getHandValue(create5Cards("As", "Tc", "Qd", "Jc", "Kh"))).toEqual(4000014);
     });
 
     it('should return proper value for flush', () => {
-        expect(HandEstimator.estimate(toCards("2c", "3c", "4c", "5c", "7c"))).toEqual(5075432);
+        expect(HandEstimator.getHandValue(create5Cards("2c", "3c", "4c", "5c", "7c"))).toEqual(5075432);
     });
 
     it('should return proper value for flush  with ace', () => {
-        expect(HandEstimator.estimate(toCards("9h", "3h", "4h", "5h", "Ah"))).toEqual(5149543);
+        expect(HandEstimator.getHandValue(create5Cards("9h", "3h", "4h", "5h", "Ah"))).toEqual(5149543);
     });
 
     it('should return proper value for straight flush with ace as one', () => {
-        expect(HandEstimator.estimate(toCards("2s", "5s", "As", "4s", "3s"))).toEqual(8000005);
+        expect(HandEstimator.getHandValue(create5Cards("2s", "5s", "As", "4s", "3s"))).toEqual(8000005);
     });
 
     it('should return proper value for straight flush', () => {
-        expect(HandEstimator.estimate(toCards("6d", "4d", "2d", "5d", "3d"))).toEqual(8000006);
+        expect(HandEstimator.getHandValue(create5Cards("6d", "4d", "2d", "5d", "3d"))).toEqual(8000006);
     });
 
     it('should return proper value for straight flush', () => {
-        expect(HandEstimator.estimate(toCards("Ah", "Th", "Qh", "Jh", "Kh"))).toEqual(8000014);
+        expect(HandEstimator.getHandValue(create5Cards("Ah", "Th", "Qh", "Jh", "Kh"))).toEqual(8000014);
     });
-    
+
 
 });
 
 
+describe('getWinners', () => {
 
-function toCards(card1: string, card2: string, card3: string, card4: string, card5: string): Card[] {
+    it('should return best hand for straight', () => {
+        const players = createPlayers([["6h", "7s"], ["2s", "7d"]])
+        expect(HandEstimator.getWinners(create5Cards("2c", "3c", "4c", "5c", "2h"), players))
+        .toEqual([players[1]]);
+    });
+
+});
+
+describe('getPlayerBestHand', () => {
+
+    it('should return best hand for straight', () => {
+        expect(HandEstimator.getPlayerBestHand(create5Cards("2c", "3c", "4c", "5c", "7h"), create2Cards("6h", "7s")))
+        .toEqual(4000007);
+    });
+
+});
+
+function createPlayers(playersCards: string[][]): Player[] {
+    return playersCards.map((cards, index) => new Player(index.toString(), create2Cards(cards[0], cards[1])))
+}
+
+function create2Cards(card1: string, card2: string): Card[] {
+    return [Card.fromString(card1), Card.fromString(card2)]
+}
+
+
+function create5Cards(card1: string, card2: string, card3: string, card4: string, card5: string): Card[] {
     return [Card.fromString(card1), Card.fromString(card2), Card.fromString(card3),
-            Card.fromString(card4), Card.fromString(card5),]
+            Card.fromString(card4), Card.fromString(card5)]
 }
