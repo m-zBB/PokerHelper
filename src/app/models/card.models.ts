@@ -9,20 +9,24 @@ export class CardColor {
     static diamonds = new CardColor("d");
     static clubs = new CardColor("c");
 
-    private value: string
+    private _value: string
+
+    get value(): string {
+        return this._value;
+    }
 
     constructor(color: string) {
         if (!validColors.includes(color)) {
             throw new RangeError("Invalid color: " + color)
         }
-        this.value = color
+        this._value = color
     }
 
     toUpperCase(): string {
-        return this.value.toUpperCase();
+        return this._value.toUpperCase();
     }
     toString(): string {
-        return this.value
+        return this._value
     }
 
     equals(otherColor: CardColor): boolean {

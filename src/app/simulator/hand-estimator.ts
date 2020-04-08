@@ -5,6 +5,10 @@ function NumbersAscending(a: number, b: number): number {
     return a - b;
 }
 
+function onlyUnique(value: any, index: number, self: any[]) {
+    return self.indexOf(value) === index;
+}
+
 export class HandEstimator {
 
     static estimate(cards: Card[]): number {
@@ -14,6 +18,10 @@ export class HandEstimator {
         }
 
         const ranks: number[] = cards.map(c => c.rank.value).sort(NumbersAscending)
+
+
+        const sameColor = cards.map(c => c.color.value).filter(onlyUnique).length == 1;
+
 
         const rankCounts = new Map<number, number>()
         for (const r of ranks) {
@@ -28,14 +36,18 @@ export class HandEstimator {
 
         const fourOfKind = sameKinds.get(4);
         if (fourOfKind.length === 1) {
-            return 7000000 + fourOfKind[0]*10 + this.getOneKicker(ranks, fourOfKind)
+            return 7000000 + fourOfKind[0] * 10 + this.getOneKicker(ranks, fourOfKind)
         }
         const threeOfKind = sameKinds.get(3);
         const pairs = sameKinds.get(2);
         const fullHouse = threeOfKind.length === 1 && pairs.length === 1
 
         if (fullHouse) {
-            return 6000000 + threeOfKind[0]*10 + pairs[0]
+            return 6000000 + threeOfKind[0] * 10 + pairs[0]
+        }
+
+        if (sameColor) {
+            return 5000000 + this.getSumOfFiveKickers(ranks)
         }
 
         const minMaxDiff = ranks[4] - ranks[0]
@@ -51,7 +63,7 @@ export class HandEstimator {
         }
 
         if (threeOfKind.length === 1) {
-            return 3000000 + threeOfKind[0]*100 + this.getSumOfTwoKickers(ranks, threeOfKind[0])
+            return 3000000 + threeOfKind[0] * 100 + this.getSumOfTwoKickers(ranks, threeOfKind[0])
         }
 
         if (pairs.length === 2) {
@@ -66,18 +78,20 @@ export class HandEstimator {
             return 1000000 + pairRank * 1000 + this.getSumOfThreeKickers(ranks, pairRank)
         }
 
-        return ranks[4] * 10000 + ranks[3] * 1000 + ranks[2] * 100 + ranks[1] * 10 + ranks[0]
+        return HandEstimator.getSumOfFiveKickers(ranks)
     }
 
-
-
-    static getSumOfTwoKickers(ranks: number[], rankToDiscard: number): number {
-        const kickersRanks = ranks.filter(r => r != rankToDiscard).sort(NumbersAscending)
-        return kickersRanks[1] * 10 + kickersRanks[0]
+    private static getSumOfFiveKickers(ranks: number[]): number {
+        return ranks[4] * 10000 + ranks[3] * 1000 + ranks[2] * 100 + ranks[1] * 10 + ranks[0];
     }
 
     private static getOneKicker(ranks: number[], pairs: number[]): number {
         return ranks.filter(r => !pairs.includes(r))[0]
+    }
+
+    static getSumOfTwoKickers(ranks: number[], rankToDiscard: number): number {
+        const kickersRanks = ranks.filter(r => r != rankToDiscard).sort(NumbersAscending)
+        return kickersRanks[1] * 10 + kickersRanks[0]
     }
 
     private static getSumOfThreeKickers(ranks: number[], rankToDiscard: number): number {

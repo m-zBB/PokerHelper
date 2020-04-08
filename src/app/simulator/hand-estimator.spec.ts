@@ -93,6 +93,14 @@ describe('HandEstimator', () => {
         expect(HandEstimator.estimate(toCards("As", "Tc", "Qd", "Jc", "Kh"))).toEqual(4000014);
     });
 
+    it('should return proper value for flush', () => {
+        expect(HandEstimator.estimate(toCards("2c", "3c", "4c", "5c", "7c"))).toEqual(5075432);
+    });
+
+    it('should returnproper value for flush with ace', () => {
+        expect(HandEstimator.estimate(toCards("9h", "3h", "4h", "5h", "Ah"))).toEqual(5149543);
+    });
+
 });
 
 
