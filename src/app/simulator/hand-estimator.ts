@@ -20,7 +20,7 @@ export class HandEstimator {
         const ranks: number[] = cards.map(c => c.rank.value).sort(NumbersAscending)
 
 
-        const sameColor = cards.map(c => c.color.value).filter(onlyUnique).length == 1;
+        const flush = cards.map(c => c.color.value).filter(onlyUnique).length == 1;
 
 
         const rankCounts = new Map<number, number>()
@@ -34,25 +34,35 @@ export class HandEstimator {
 
         const sameKinds: Map<number, number[]> = this.getRanksOfTheSameKind(rankCounts)
 
+        const threeOfKind = sameKinds.get(3);
+        const pairs = sameKinds.get(2);
+
+        const minMaxDiff = ranks[4] - ranks[0]
+        const straight = (minMaxDiff === 4 || minMaxDiff === 12) && pairs.length === 0 && threeOfKind.length === 0
+        const straightWithAceAsOne = straight && ranks[4] === 14 && ranks[0] === 2
+
+        if (straightWithAceAsOne && flush) {
+            return 8000005
+        }
+
+        if (straight && flush) {
+            return 8000000 + ranks[4]
+        }
+
         const fourOfKind = sameKinds.get(4);
         if (fourOfKind.length === 1) {
             return 7000000 + fourOfKind[0] * 10 + this.getOneKicker(ranks, fourOfKind)
         }
-        const threeOfKind = sameKinds.get(3);
-        const pairs = sameKinds.get(2);
+
         const fullHouse = threeOfKind.length === 1 && pairs.length === 1
 
         if (fullHouse) {
             return 6000000 + threeOfKind[0] * 10 + pairs[0]
         }
 
-        if (sameColor) {
+        if (flush) {
             return 5000000 + this.getSumOfFiveKickers(ranks)
         }
-
-        const minMaxDiff = ranks[4] - ranks[0]
-        const straight = (minMaxDiff === 4 || minMaxDiff === 12) && pairs.length === 0 && threeOfKind.length === 0
-        const straightWithAceAsOne = straight && ranks[4] === 14 && ranks[0] === 2
 
         if (straightWithAceAsOne) {
             return 4000005

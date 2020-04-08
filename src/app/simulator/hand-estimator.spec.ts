@@ -97,9 +97,22 @@ describe('HandEstimator', () => {
         expect(HandEstimator.estimate(toCards("2c", "3c", "4c", "5c", "7c"))).toEqual(5075432);
     });
 
-    it('should returnproper value for flush with ace', () => {
+    it('should return proper value for flush  with ace', () => {
         expect(HandEstimator.estimate(toCards("9h", "3h", "4h", "5h", "Ah"))).toEqual(5149543);
     });
+
+    it('should return proper value for straight flush with ace as one', () => {
+        expect(HandEstimator.estimate(toCards("2s", "5s", "As", "4s", "3s"))).toEqual(8000005);
+    });
+
+    it('should return proper value for straight flush', () => {
+        expect(HandEstimator.estimate(toCards("6d", "4d", "2d", "5d", "3d"))).toEqual(8000006);
+    });
+
+    it('should return proper value for straight flush', () => {
+        expect(HandEstimator.estimate(toCards("Ah", "Th", "Qh", "Jh", "Kh"))).toEqual(8000014);
+    });
+    
 
 });
 
