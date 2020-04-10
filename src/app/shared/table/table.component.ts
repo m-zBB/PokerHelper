@@ -69,21 +69,21 @@ export class TableCards {
     isSet(): boolean {
         return this.card1.isSet() && this.card2.isSet() && this.card3.isSet()
     }
-    getCardSymbolsForPokerCalcLib(): string[] {
-        const cards: string[] = [
-            this.card1.getSymbolForPokerCalcLib(),
-            this.card2.getSymbolForPokerCalcLib(),
-            this.card3.getSymbolForPokerCalcLib()
+
+    getCards(): Card[] {
+        const cards: Card[] = [
+            this.card1,
+            this.card2,
+            this.card3
         ]
 
         if (this.card4.isSet()) {
-            cards.push(this.card4.getSymbolForPokerCalcLib())
+            cards.push(this.card4)
         }
         if (this.card4.isSet() && this.card5.isSet()) {
-            cards.push(this.card5.getSymbolForPokerCalcLib())
+            cards.push(this.card5)
         }
         return cards
     }
-
 }
 

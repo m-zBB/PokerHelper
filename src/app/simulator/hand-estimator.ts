@@ -38,7 +38,7 @@ export class HandEstimator {
             [t[0], t[1], t[2], p[0], p[1]], //'01256'
             [t[0], t[1], t[3], t[4], p[0]], //'01345'
             [t[0], t[1], t[3], t[4], p[0]], //'01346'
-            [t[0], t[1], t[3], p[0], p[0]], //'01356'
+            [t[0], t[1], t[3], p[0], p[1]], //'01356'
             [t[0], t[1], t[4], p[0], p[1]], //'01456'
             [t[0], t[2], t[3], t[4], p[0]], //'02345'
             [t[0], t[2], t[3], t[4], p[1]], //'02346'
@@ -53,17 +53,22 @@ export class HandEstimator {
         ]
 
         const handValues = hands
-            .map(cards => this.getHandValue(cards))
+            .map((cards, index) => this.getHandValue(cards))
             .sort(NumbersAscending);
 
         return handValues[20];
     }
+    
 
 
     static getHandValue(cards: Card[]): number {
 
         if (cards === undefined || cards.length < 5 || cards.some(c => !c.isSet())) {
             throw new Error("HandEstimator.estimate requires array of five not empty cards")
+        }
+
+        if (cards.map(c => c.getSymbolForHutchisonLib()).filter(onlyUnique).length < 5) {
+            throw new Error("HandEstimator.estimate requires array of five unique cards")
         }
 
         const ranks: number[] = cards.map(c => c.rank.value).sort(NumbersAscending)
@@ -86,8 +91,9 @@ export class HandEstimator {
         const pairs = sameKinds.get(2);
 
         const minMaxDiff = ranks[4] - ranks[0]
-        const straight = (minMaxDiff === 4 || minMaxDiff === 12) && pairs.length === 0 && threeOfKind.length === 0
-        const straightWithAceAsOne = straight && ranks[4] === 14 && ranks[0] === 2
+        const noPairsOrThreeOfKind = pairs.length === 0 && threeOfKind.length === 0
+        const straight = minMaxDiff === 4 && noPairsOrThreeOfKind
+        const straightWithAceAsOne = ranks[0] == 2 && ranks[3] - ranks[0] == 3 && ranks[4] == 14 && noPairsOrThreeOfKind
 
         if (straightWithAceAsOne && flush) {
             return 8000005

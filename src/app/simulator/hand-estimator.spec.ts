@@ -21,6 +21,11 @@ describe('getHandValue', () => {
         expect(() => HandEstimator.getHandValue([new Card(), new Card(), new Card(), new Card(), new Card()])).toThrowError(expectedError)
     });
 
+    it('should return error when cards are not unique', () =>{
+        expect(() => HandEstimator.getHandValue(create5Cards("2c", "4d", "2c", "8d", "2d")))
+        .toThrowError("HandEstimator.estimate requires array of five unique cards")
+    });
+
     it('should return 7 for high card seven', () => {
         expect(HandEstimator.getHandValue(create5Cards("2c", "3c", "4c", "5c", "7h"))).toEqual(75432);
     });
@@ -34,7 +39,7 @@ describe('getHandValue', () => {
     });
 
     it('should return 1010762 for one pair of twos', () => {
-        expect(HandEstimator.getHandValue(create5Cards("Tc", "6d", "Tc", "2d", "7h"))).toEqual(1010762);
+        expect(HandEstimator.getHandValue(create5Cards("Tc", "6d", "Td", "2d", "7h"))).toEqual(1010762);
     });
 
     it('should return 2001434 for two pairs', () => {
@@ -42,7 +47,7 @@ describe('getHandValue', () => {
     });
 
     it('should return 2000986 for two pairs', () => {
-        expect(HandEstimator.getHandValue(create5Cards("8c", "9d", "8c", "6d", "9h"))).toEqual(2000986);
+        expect(HandEstimator.getHandValue(create5Cards("8c", "9d", "8h", "6d", "9h"))).toEqual(2000986);
     });
 
     it('should return 3000986 for three of a kind', () => {
@@ -113,18 +118,32 @@ describe('getHandValue', () => {
         expect(HandEstimator.getHandValue(create5Cards("Ah", "Th", "Qh", "Jh", "Kh"))).toEqual(8000014);
     });
 
+    it('should not return straight for high card', () => {
+        expect(HandEstimator.getHandValue(create5Cards("Qd", "2d", "Th", "4s", "Ah"))).toEqual(153042);
+    });
+
+    it('should not fuck up', () => {
+        expect(HandEstimator.getHandValue(create5Cards("Qd", "2d", "Th", "4s", "Ah"))).toEqual(153042);
+    });
+
+
 
 });
 
 
 describe('getWinners', () => {
 
-    it('should return best hand for straight', () => {
+    it('should return best hand from straight and four of a kind', () => {
         const players = createPlayers([["6h", "7s"], ["2s", "2d"]])
         expect(HandEstimator.getWinners(create5Cards("2c", "3c", "4c", "5c", "2h"), players)[0].name)
         .toEqual("2");
     });
 
+    it('should return best hand from two pairs and high card', () => {
+        const players = createPlayers([["Qc", "Ac"], ["5s", "7c"]])
+        expect(HandEstimator.getWinners(create5Cards("Ah","Qd","Th","2c","4h"), players)[0].name)
+        .toEqual("1");
+    });
 });
 
 describe('getPlayerBestHand', () => {

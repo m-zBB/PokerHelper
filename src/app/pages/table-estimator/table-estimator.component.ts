@@ -4,6 +4,7 @@ import { TableCards } from 'src/app/shared/table/table.component';
 import { monteCarlo } from 'src/app/simulator/simulator';
 import { cardDeck, Card } from 'src/app/models/card.models';
 import { ActivatedRoute } from '@angular/router';
+import { monteCarloNew } from 'src/app/simulator/simulator-new';
 
 @Component({
     selector: 'app-table-estimator',
@@ -64,8 +65,7 @@ export class TableEstimatorComponent implements OnInit {
         }
 
         console.time("simulation")
-        var results = monteCarlo(this.handCards.getCardSymbolsForPokerCalcLib(),
-            this.tableCards.getCardSymbolsForPokerCalcLib(), this.numberOfPlayers);
+        var results = monteCarloNew(this.handCards.getCards(), this.tableCards.getCards(), this.numberOfPlayers);
         console.timeEnd("simulation")
 
         const winPercent = results[0] * 100;

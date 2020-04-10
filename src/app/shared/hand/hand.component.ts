@@ -64,7 +64,8 @@ export class HandCards {
     getCardSymbolsForHutchisonLib(): string[] {
         return [this.card1.getSymbolForHutchisonLib(), this.card2.getSymbolForHutchisonLib()]
     }
-    getCardSymbolsForPokerCalcLib(): string[] {
-        return [this.card1.getSymbolForPokerCalcLib(), this.card2.getSymbolForPokerCalcLib()]
+
+    getCards(): Card[] {
+        return [this.card1, this.card2]
     }
 }
