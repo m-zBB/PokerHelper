@@ -11,7 +11,7 @@ function onlyUnique(value: any, index: number, self: any[]) {
 
 export class Player {
     score: number
-    constructor (public name: string, public cards: Card[]) {
+    constructor(public name: string, public cards: Card[]) {
     }
 }
 
@@ -20,22 +20,40 @@ export class HandEstimator {
 
     static getWinners(tableCards: Card[], players: Player[]): Player[] {
         players.forEach(p => p.score = this.getPlayerBestHand(tableCards, p.cards))
-        const playersSortedDescendingByScore = players.sort((a,b) => b.score - a.score)
+        const playersSortedDescendingByScore = players.sort((a, b) => b.score - a.score)
         const winningScore = playersSortedDescendingByScore[0].score
 
         return players.filter(p => p.score === winningScore)
     }
 
     static getPlayerBestHand(t: Card[], p: Card[]): number {
+
         const hands: Card[][] = [
-            [t[0], t[1], t[2], t[3], t[4]], //'01234'
-            [t[2], t[3], t[4], p[0], p[1]], //'23456'
+            [t[0], t[1], t[2], t[3], t[4]], //'01234'
+            [t[2], t[3], t[4], p[0], p[1]], //'23456'
+            [t[0], t[1], t[2], t[3], p[0]], //'01235'
+            [t[0], t[1], t[2], t[3], p[1]], //'01236'
+            [t[0], t[1], t[2], t[4], p[0]], //'01245'
+            [t[0], t[1], t[2], t[4], p[1]], //'01246'
+            [t[0], t[1], t[2], p[0], p[1]], //'01256'
+            [t[0], t[1], t[3], t[4], p[0]], //'01345'
+            [t[0], t[1], t[3], t[4], p[0]], //'01346'
+            [t[0], t[1], t[3], p[0], p[0]], //'01356'
+            [t[0], t[1], t[4], p[0], p[1]], //'01456'
+            [t[0], t[2], t[3], t[4], p[0]], //'02345'
+            [t[0], t[2], t[3], t[4], p[1]], //'02346'
+            [t[0], t[2], t[3], p[0], p[1]], //'02356'
+            [t[0], t[2], t[4], p[0], p[1]], //'02456'
+            [t[0], t[3], t[4], p[0], p[1]], //'03456'
+            [t[1], t[2], t[3], t[4], p[0]], //'12345'
+            [t[1], t[2], t[3], t[4], p[1]], //'12346'
+            [t[1], t[2], t[3], p[0], p[1]], //'12356'
+            [t[1], t[2], t[4], p[0], p[1]], //'12456'
+            [t[1], t[3], t[4], p[0], p[1]], //'13456'
         ]
-        //[, '01235', '01236', '01245', '01246', '01256', '01345', '01346', '01356', '01456', '02345',
-        //'02346', '02356', '02456', '03456', '12345', '12346', '12356', '12456', '13456', ]
 
         const handValues = hands
-            .map(this.getHandValue)
+            .map(cards => this.getHandValue(cards))
             .sort(NumbersAscending);
 
         return handValues[20];
@@ -51,7 +69,7 @@ export class HandEstimator {
         const ranks: number[] = cards.map(c => c.rank.value).sort(NumbersAscending)
         const flush = cards.map(c => c.color.value).filter(onlyUnique).length == 1;
 
-        //todo move to  method getRanksOfTheSameKind, zmian argumentu gatranks,
+        //todo move to  method getRanksOfTheSameKind, zmiana argumentu gatranks - ranks jako parametr
         const rankCounts = new Map<number, number>()
         for (const r of ranks) {
             let count = rankCounts.get(r)
@@ -105,7 +123,14 @@ export class HandEstimator {
             return 3000000 + threeOfKind[0] * 100 + this.getSumOfTwoKickers(ranks, threeOfKind[0])
         }
 
-        //todo extract to method getPairsValue it should return -1 when there are no pairs
+        if (pairs.length > 0) {
+            return this.getPairsValue(ranks, pairs)
+        }
+
+        return HandEstimator.getSumOfFiveKickers(ranks)
+    }
+
+    private static getPairsValue(ranks: number[], pairs: number[]): number {
         if (pairs.length === 2) {
             const sortedPairs = pairs.sort(NumbersAscending)
             const lowerPair = sortedPairs[0]
@@ -116,9 +141,7 @@ export class HandEstimator {
             const pairRank = pairs[0]
             return 1000000 + pairRank * 1000 + this.getSumOfThreeKickers(ranks, pairRank)
         }
-        //
-
-        return HandEstimator.getSumOfFiveKickers(ranks)
+        return -1
     }
 
     private static getSumOfFiveKickers(ranks: number[]): number {

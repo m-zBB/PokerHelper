@@ -120,9 +120,9 @@ describe('getHandValue', () => {
 describe('getWinners', () => {
 
     it('should return best hand for straight', () => {
-        const players = createPlayers([["6h", "7s"], ["2s", "7d"]])
-        expect(HandEstimator.getWinners(create5Cards("2c", "3c", "4c", "5c", "2h"), players))
-        .toEqual([players[1]]);
+        const players = createPlayers([["6h", "7s"], ["2s", "2d"]])
+        expect(HandEstimator.getWinners(create5Cards("2c", "3c", "4c", "5c", "2h"), players)[0].name)
+        .toEqual("2");
     });
 
 });
@@ -137,7 +137,7 @@ describe('getPlayerBestHand', () => {
 });
 
 function createPlayers(playersCards: string[][]): Player[] {
-    return playersCards.map((cards, index) => new Player(index.toString(), create2Cards(cards[0], cards[1])))
+    return playersCards.map((cards, index) => new Player((index + 1).toString(), create2Cards(cards[0], cards[1])))
 }
 
 function create2Cards(card1: string, card2: string): Card[] {
