@@ -28,6 +28,7 @@ export class HandEstimator {
 
     static getPlayerBestHand(t: Card[], p: Card[]): number {
 
+        //21 permutations 5 of 7
         const hands: Card[][] = [
             [t[0], t[1], t[2], t[3], t[4]], //'01234'
             [t[2], t[3], t[4], p[0], p[1]], //'23456'
@@ -58,7 +59,7 @@ export class HandEstimator {
 
         return handValues[20];
     }
-    
+
 
 
     static getHandValue(cards: Card[]): number {
@@ -74,18 +75,7 @@ export class HandEstimator {
         const ranks: number[] = cards.map(c => c.rank.value).sort(NumbersAscending)
         const flush = cards.map(c => c.color.value).filter(onlyUnique).length == 1;
 
-        //todo move to  method getRanksOfTheSameKind, zmiana argumentu gatranks - ranks jako parametr
-        const rankCounts = new Map<number, number>()
-        for (const r of ranks) {
-            let count = rankCounts.get(r)
-            if (count === undefined) {
-                count = 0
-            }
-            rankCounts.set(r, ++count)
-        }
-        //
-
-        const sameKinds: Map<number, number[]> = this.getRanksOfTheSameKind(rankCounts)
+        const sameKinds: Map<number, number[]> = this.getRanksOfTheSameKind(ranks)
 
         const threeOfKind = sameKinds.get(3);
         const pairs = sameKinds.get(2);
@@ -168,8 +158,16 @@ export class HandEstimator {
         return kickersRanks[2] * 100 + kickersRanks[1] * 10 + kickersRanks[0]
     }
 
-    private static getRanksOfTheSameKind(rankCounts: Map<number, number>): Map<number, number[]> {
+    private static getRanksOfTheSameKind(ranks): Map<number, number[]> {
         const sameKinds: Map<number, number[]> = new Map<number, number[]>([[2, []], [3, []], [4, []]]);
+        const rankCounts = new Map<number, number>()
+        for (const r of ranks) {
+            let count = rankCounts.get(r)
+            if (count === undefined) {
+                count = 0
+            }
+            rankCounts.set(r, ++count)
+        }
         for (var [rank, count] of rankCounts) {
             if (count !== 1) {
                 sameKinds.get(count).push(rank)
