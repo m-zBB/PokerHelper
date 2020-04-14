@@ -159,12 +159,12 @@ function createPlayers(playersCards: string[][]): Player[] {
     return playersCards.map((cards, index) => new Player((index + 1).toString(), create2Cards(cards[0], cards[1])))
 }
 
-function create2Cards(card1: string, card2: string): Card[] {
+export function create2Cards(card1: string, card2: string): Card[] {
     return [Card.fromString(card1), Card.fromString(card2)]
 }
 
 
-function create5Cards(card1: string, card2: string, card3: string, card4: string, card5: string): Card[] {
+export function create5Cards(card1: string, card2: string, card3: string, card4: string, card5: string): Card[] {
     return [Card.fromString(card1), Card.fromString(card2), Card.fromString(card3),
             Card.fromString(card4), Card.fromString(card5)]
 }

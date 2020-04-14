@@ -93,6 +93,10 @@ export class Card {
         return new Card(cardRank, cardColor)
     }
 
+    equals(otherCard: Card): boolean {
+        return otherCard.color.equals(this.color) && otherCard.rank.equals(this.rank)
+    }
+
     set(newCard: Card) {
         this._rank = newCard._rank;
         this._color = newCard._color;

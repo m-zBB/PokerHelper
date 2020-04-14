@@ -44,8 +44,8 @@ function simulate(playerCards: Card[], table: Card[], playersCount: number) {
     }
 
     // remove table and hand cards from deck
-    deck = deck.filter(c => !~table.indexOf(c)); // ugly hack !~table.indexOf(c)
-    deck = deck.filter(c => !~playerCards.indexOf(c));
+    deck = deck.filter(c => !table.some(tableCard => tableCard.equals(c)));
+    deck = deck.filter(c => !playerCards.some(playerCard => playerCard.equals(c)));
 
     players.push(new Player(humanPlayerName, playerCards));
 
